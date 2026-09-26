@@ -26,17 +26,17 @@ Bu belge, **TryFinally** projesinin geliştirme adımlarını, takım kararları
 
 > Takım kararı gereği; ekibin tasarımı erkenden görebilmesi ve geri bildirim verebilmesi için görsel arayüz bu aşamada taslak olarak kurulur.
 
-* [ ] **1.1 Merkezi Taslak Tema Sistemi ve Renk Token'ları**
+* [x] **1.1 Merkezi Taslak Tema Sistemi ve Renk Token'ları**
   * Semantik renk token'larının (`background`, `surface`, `primary`, `secondary`, `accent`, `muted`, `border`, `destructive`) CSS variables ve Tailwind'e bağlanması.
   * Kolayca güncellenebilir merkezi tema sözleşmesinin (`src/lib/theme/`) hazırlanması.
-* [ ] **1.2 Temel Arayüz Kabuğu (Shell)**
-  * shadcn/ui temel bileşenlerinin eklenmesi (`Button`, `Card`, `Tabs`, `Dialog`, `Badge`, `Input`, vb.).
-  * Kök layout, üst menü (Navbar), alt bilgi (Footer) ve tema desteğinin (Light/Dark mode) ayarlanması.
-* [ ] **1.3 Taslak Ekranların Geliştirilmesi (Mock Verilerle)**
-  * **Kodlama & Soru Paneli Taslağı (`features/puzzles/ui.tsx`):** Sol tarafta soru kartı, sağda Monaco Editor alanı, altta konsol/çıktı paneli ve Gemini AI yardım butonu.
-  * **Topluluk Forumu Taslağı (`features/forum/ui.tsx`):** Başlık listesi, arama kutusu, başlık detay görünümü ve yanıt formu.
-  * **Yol Haritası & Öğrenme Taslağı (`features/learn/ui.tsx`):** Konu adımları haritası ve Markdown okuyucu paneli.
-  * **Profil & İlerleme Taslağı (`features/gamification/ui.tsx`):** Skor kartları, çözülen soru istatistikleri ve rozet vitrini.
+* [x] **1.2 Temel Arayüz Kabuğu (Shell)**
+  * UI temel bileşenlerinin eklenmesi (`Button`, `Card`, `Badge`, `Input`, vb.).
+  * Kök layout, üst menü (Navbar), alt bilgi (Footer) ve tema desteğinin ayarlanması.
+* [x] **1.3 Taslak Ekranların Geliştirilmesi (Mock Verilerle)**
+  * **Kodlama & Soru Paneli Taslağı (`/puzzles` ve `/puzzles/[slug]`):** Sol tarafta soru kartı, sağda hafif mock kod editör alanı, altta konsol/çıktı paneli ve Gemini AI ipucu butonu.
+  * **Topluluk Forumu Taslağı (`/forum` ve `/forum/[id]`):** Başlık listesi, arama/filtreleme, başlık detay görünümü ve yanıt formu.
+  * **Yol Haritası & Öğrenme Taslağı (`/learn`):** Konu adımları haritası ve içerik okuma paneli.
+  * **Profil & İlerleme Taslağı (`/profile`):** Skor kartları, çözülen soru istatistikleri ve rozet vitrini.
 
 ---
 

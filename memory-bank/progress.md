@@ -10,8 +10,8 @@ Bu belge, **TryFinally** projesinin mevcut durumunu, tamamlanan adımları, geli
 | :--- | :--- | :--- | :--- |
 | **Ön Hazırlık** | Memory Bank Kurulumu, Çevre Değişkenleri, README & Temel Plan | **Tamamlandı** | 100% |
 | **Faz 0** | Temel Proje Yapısı, İskelet, Log Servisi ve Çevre Değişkenleri | **Tamamlandı** | 100% |
-| **Faz 1** | Merkezi Taslak Tema Sistemi, Arayüz İskeleti ve Taslak Ekranlar | **Sırada** | 0% |
-| **Faz 2** | Sunucu Veri Katmanı ve Çekirdek Servisler (Backend & DB) | Bekliyor | 0% |
+| **Faz 1** | Merkezi Taslak Tema Sistemi, Arayüz İskeleti ve Taslak Ekranlar | **Tamamlandı** | 100% |
+| **Faz 2** | Sunucu Veri Katmanı ve Çekirdek Servisler (Backend & DB) | **Sırada** | 0% |
 | **Faz 3** | Tarayıcı İçi İzole Kod Koşturucu (Web Worker & Pyodide) | Bekliyor | 0% |
 | **Faz 4** | Google Gemini API ile Akıllı Asistan Servisi (`features/ai`) | Bekliyor | 0% |
 | **Faz 5** | Arayüz ve Sunucu Entegrasyonu (Dinamik UI & Runner Bağlantısı) | Bekliyor | 0% |
@@ -24,25 +24,22 @@ Bu belge, **TryFinally** projesinin mevcut durumunu, tamamlanan adımları, geli
 
 - [x] **Git Deposu & Lisans:** Depo oluşturuldu, GNU General Public License v3.0 (GPL-3.0) eklendi.
 - [x] **Çevre Değişkenleri Şablonu (`.env.example`):** Gemini API, veritabanı ve log yapılandırmaları detaylı açıklamalarla hazırlandı.
-- [x] **Cline Memory Bank Çekirdeği:**
-  - [x] `projectbrief.md`: Vizyon, kapsam ve temel kurallar.
-  - [x] `productContext.md`: Çözülen problemler ve UX hedefleri.
-  - [x] `activeContext.md`: Aktif odak, takım kararları ve sonraki adımlar.
-  - [x] `systemPatterns.md`: Clean Architecture, ultra-modüler tema token'ları ve runner mimarisi.
-  - [x] `techContext.md`: Teknoloji stack'i, Node/npm ortamı, build/test komutları ve RTK kuralı.
-  - [x] `progress.md`: Durum takibi ve karar evrimi.
-- [x] **Mimari Kararlar:**
-  - Çevrimdışı yerine sunucu tabanlı (server-centric) veri yönetimi.
-  - Tek harici API: Google Gemini API.
-  - İstemcide izole kod çalıştırma (Web Worker & Pyodide).
-  - Kolayca güncellenebilir merkezi taslak tema sistemi.
-- [x] **Faz 0 Temel İskelet ve Modüller:** Next.js 15, TypeScript, Tailwind CSS, `src/features/` modülleri (forum, puzzles, runner, learn, gamification, ai), `lib/logger.ts`, `lib/theme/tokens.ts`, Root Layout ve karşılama sayfası.
+- [x] **Cline Memory Bank Çekirdeği:** `projectbrief.md`, `productContext.md`, `activeContext.md`, `systemPatterns.md`, `techContext.md`, `progress.md`.
+- [x] **Mimari Kararlar:** Sunucu odaklı mimari, Gemini API (gemini-3.8-flash), istemci runner sözleşmesi, merkezi taslak tema sistemi.
+- [x] **Faz 0 Temel İskelet ve Modüller:** Next.js 15, TypeScript, Tailwind CSS, `src/features/` modülleri, `lib/logger.ts`, `lib/theme/tokens.ts`, Root Layout ve karşılama sayfası.
+- [x] **Faz 1 Taslak Arayüz ve Sayfalar Arası Geçiş:**
+  - [x] `/puzzles`: Algoritma soru listesi ve filtreler.
+  - [x] `/puzzles/[slug]`: Bölünmüş ekran kodlama paneli (soru kartı, mock kod alanı, dil seçici, konsol, Gemini ipucu alanı).
+  - [x] `/forum`: Topluluk forumu konu listesi, kategoriler ve arama.
+  - [x] `/forum/[id]`: Konu detayı, oy verme, yanıtlar ve cevap yazma alanı.
+  - [x] `/learn`: Öğrenme müfredatı adımları ve konu okuma paneli.
+  - [x] `/profile`: Kullanıcı profili, istatistik kartları, rozet vitrini ve çözüm geçmişi.
+  - [x] `Button`, `Badge`, `Card`, `Input` temel semantik UI bileşenleri.
 
 ---
 
 ## 3. Yapılacaklar (What's Left to Build)
 
-* [ ] **Faz 1:** Taslak tema token'ları, shadcn/ui altyapısı, Navbar/Footer ve 4 ana taslak ekran (Kodlama, Forum, Öğrenme, Profil).
 * [ ] **Faz 2:** Sunucu veritabanı (PostgreSQL/SQLite), Server Actions/API'ler ve mock tohum verileri.
 * [ ] **Faz 3:** JavaScript Web Worker ve Python Pyodide izole koşturucu altyapısı.
 * [ ] **Faz 4:** Gemini API istemcisi, hata açıklaması ve yönlendirici ipucu servisleri.
