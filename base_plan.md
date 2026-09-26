@@ -8,16 +8,16 @@ Bu belge, **TryFinally** projesinin geliştirme adımlarını, takım kararları
 
 > Bu aşamada Next.js App Router projesi başlatılır, klasör iskeleti kurulur, tip modelleri ve merkezi log servisi hazırlanır.
 
-* [ ] **0.1 Proje İskeleti ve Bağımlılıkların Kurulması**
+* [x] **0.1 Proje İskeleti ve Bağımlılıkların Kurulması**
   * Next.js, TypeScript, Tailwind CSS ve temel yapılandırmaların oluşturulması.
   * `.env.example` dosyasının doğrulanması ve yerel `.env.local` oluşturulması.
-* [ ] **0.2 Modüler Klasör Yapısının Kurulması (`src/features/`)**
+* [x] **0.2 Modüler Klasör Yapısının Kurulması (`src/features/`)**
   * `forum`, `puzzles`, `runner`, `learn`, `gamification`, `ai` modül klasörlerinin oluşturulması.
   * Her modülün içine `types.ts`, `service.ts`, `ui.tsx`, `index.ts` dosyalarının yerleştirilmesi.
-* [ ] **0.3 Merkezi Log Servisi (`src/lib/logger.ts`)**
+* [x] **0.3 Merkezi Log Servisi (`src/lib/logger.ts`)**
   * `debug`, `info`, `warn`, `error` seviyelerini yöneten merkezi logger yapısının kurulması.
   * Modül adı, zaman damgası ve parametreleri okunaklı formatta gösteren fonksiyonların yazılması.
-* [ ] **0.4 Çekirdek Domain Tiplerinin Belirlenmesi**
+* [x] **0.4 Çekirdek Domain Tiplerinin Belirlenmesi**
   * Soru, test case, forum başlığı, yorum, kullanıcı profili ve AI yanıtı veri modellerinin tanımlanması.
 
 ---

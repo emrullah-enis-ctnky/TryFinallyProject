@@ -9,8 +9,8 @@ Bu belge, **TryFinally** projesinin mevcut durumunu, tamamlanan adımları, geli
 | Faz | Açıklama | Durum | İlerleme |
 | :--- | :--- | :--- | :--- |
 | **Ön Hazırlık** | Memory Bank Kurulumu, Çevre Değişkenleri, README & Temel Plan | **Tamamlandı** | 100% |
-| **Faz 0** | Temel Proje Yapısı, İskelet, Log Servisi ve Çevre Değişkenleri | Sırada | 0% |
-| **Faz 1** | Merkezi Taslak Tema Sistemi, Arayüz İskeleti ve Taslak Ekranlar | Bekliyor | 0% |
+| **Faz 0** | Temel Proje Yapısı, İskelet, Log Servisi ve Çevre Değişkenleri | **Tamamlandı** | 100% |
+| **Faz 1** | Merkezi Taslak Tema Sistemi, Arayüz İskeleti ve Taslak Ekranlar | **Sırada** | 0% |
 | **Faz 2** | Sunucu Veri Katmanı ve Çekirdek Servisler (Backend & DB) | Bekliyor | 0% |
 | **Faz 3** | Tarayıcı İçi İzole Kod Koşturucu (Web Worker & Pyodide) | Bekliyor | 0% |
 | **Faz 4** | Google Gemini API ile Akıllı Asistan Servisi (`features/ai`) | Bekliyor | 0% |
@@ -36,13 +36,12 @@ Bu belge, **TryFinally** projesinin mevcut durumunu, tamamlanan adımları, geli
   - Tek harici API: Google Gemini API.
   - İstemcide izole kod çalıştırma (Web Worker & Pyodide).
   - Kolayca güncellenebilir merkezi taslak tema sistemi.
-  - Takım kararıyla önce iskelet+log, hemen ardından taslak UI geliştirme sırası.
+- [x] **Faz 0 Temel İskelet ve Modüller:** Next.js 15, TypeScript, Tailwind CSS, `src/features/` modülleri (forum, puzzles, runner, learn, gamification, ai), `lib/logger.ts`, `lib/theme/tokens.ts`, Root Layout ve karşılama sayfası.
 
 ---
 
 ## 3. Yapılacaklar (What's Left to Build)
 
-* [ ] **Faz 0:** Next.js kurulumu, TypeScript/Tailwind entegrasyonu, `features/` klasör iskeleti, `lib/logger.ts` log servisi ve domain tipleri.
 * [ ] **Faz 1:** Taslak tema token'ları, shadcn/ui altyapısı, Navbar/Footer ve 4 ana taslak ekran (Kodlama, Forum, Öğrenme, Profil).
 * [ ] **Faz 2:** Sunucu veritabanı (PostgreSQL/SQLite), Server Actions/API'ler ve mock tohum verileri.
 * [ ] **Faz 3:** JavaScript Web Worker ve Python Pyodide izole koşturucu altyapısı.
