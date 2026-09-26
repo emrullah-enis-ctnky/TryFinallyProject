@@ -22,7 +22,7 @@ Bu belge, **TryFinally** projesinin mevcut durumunu, tamamlanan adımları, geli
 
 ## 2. Neler Tamamlandı? (What Works)
 
-- [x] **Git Deposu & Lisans:** Depo oluşturuldu, MIT lisansı eklendi.
+- [x] **Git Deposu & Lisans:** Depo oluşturuldu, GNU General Public License v3.0 (GPL-3.0) eklendi.
 - [x] **Çevre Değişkenleri Şablonu (`.env.example`):** Gemini API, veritabanı ve log yapılandırmaları detaylı açıklamalarla hazırlandı.
 - [x] **Cline Memory Bank Çekirdeği:**
   - [x] `projectbrief.md`: Vizyon, kapsam ve temel kurallar.

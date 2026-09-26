@@ -88,7 +88,7 @@ TryFinallyProject/
 │   │   ├── theme/              # Merkezi semantik renk token'ları ve tema yapılandırması
 │   │   └── utils.ts            # Yardımcı fonksiyonlar
 │   └── components/ui/          # Paylaşılan atomik UI bileşenleri (shadcn/ui)
-├── LICENSE                     # MIT Açık Kaynak Lisansı
+├── LICENSE                     # GNU General Public License v3.0 (GPL-3.0)
 └── README.md                   # Proje tanıtım ve kullanım kılavuzu
 ```
 
@@ -200,4 +200,4 @@ TryFinally topluluk odaklı, açık kaynaklı bir projedir. Her türlü katkıya
 
 ## 📄 Lisans
 
-Bu proje [MIT Lisansı](LICENSE) altında lisanslanmıştır. Tamamen ücretsiz ve açık kaynaklıdır.
+Bu proje [GNU General Public License v3.0 (GPL-3.0)](LICENSE) altında lisanslanmıştır. Tamamen ücretsiz ve açık kaynaklıdır.
