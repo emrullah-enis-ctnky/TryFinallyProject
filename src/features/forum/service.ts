@@ -8,37 +8,37 @@
  */
 
 import { logger } from "@/lib/logger";
-import type { ForumThread, ForumComment } from "./types";
+import type { ForumThread } from "./types";
 
-// Başlangıç için örnek forum başlıkları (Seed Data)
+// Başlangıç için yeni başlayan dostu örnek forum başlıkları (Seed Data)
 const INITIAL_THREADS: ForumThread[] = [
   {
     id: "thread-1",
-    title: "İki Sayının Toplamı (Two Sum) algoritmasında n^2 yerine O(n) nasıl yapılır?",
-    slug: "two-sum-o-n-nasil-yapilir",
-    content: "İç içe iki for döngüsü kullandığımda zaman aşımı alıyorum. Hash Map (obje) kullanarak bu soruyu tek geçişte nasıl çözebiliriz?",
-    category: "algoritmalar",
-    tags: ["javascript", "hashmap", "time-complexity"],
+    title: "Döngüler (for / while) gerçek hayatta tam olarak ne işe yarar?",
+    slug: "donguler-ne-ise-yarar",
+    content: "Yazılıma yeni başladım ve döngü kavramını anlamaya çalışıyorum. Kod yazarken aynı işlemi tekrar tekrar yapmaktan başka nerede kullanırız?",
+    category: "genel",
+    tags: ["başlangıç", "döngüler", "mantık"],
     authorId: "user-1",
-    authorName: "Ahmet Yılmaz",
+    authorName: "Ali Demir",
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-    votes: 12,
+    votes: 14,
     commentCount: 3,
     isResolved: true,
   },
   {
     id: "thread-2",
-    title: "Python'da liste ters çevirme: [::-1] ile reverse() arasındaki fark nedir?",
-    slug: "python-liste-ters-cevirme-farklari",
-    content: "Algoritma sorularını çözerken listeyi ters çevirmem gerekiyor. Hangisi bellekte yeni bir kopya oluşturur?",
-    category: "python",
-    tags: ["python", "liste", "bellek"],
+    title: "Değişken tanımlarken let ile const arasındaki fark nedir?",
+    slug: "let-ile-const-farki",
+    content: "JavaScript öğrenirken hangisini ne zaman seçmeliyim? İkisi de veri tutuyor gibi görünüyor.",
+    category: "javascript",
+    tags: ["javascript", "değişkenler", "temel"],
     authorId: "user-2",
     authorName: "Zeynep Kaya",
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-    votes: 8,
+    votes: 9,
     commentCount: 2,
     isResolved: false,
   },

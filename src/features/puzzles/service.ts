@@ -1,55 +1,55 @@
 /**
  * ==============================================================================
- * TryFinally — Algoritma Soruları Servisi (Puzzles Service)
+ * TryFinally — Algoritma ve Pratik Soruları Servisi (Puzzles Service)
  * ==============================================================================
- * Soru listesi getirme, detay yükleme ve test senaryosu doğrulamalarını yönetir.
+ * Yeni başlayan dostu başlangıç problemleri.
  * ==============================================================================
  */
 
 import { logger } from "@/lib/logger";
 import type { Puzzle } from "./types";
 
-// Başlangıç için örnek sorular (Seed Data)
+// Başlangıç için sade ve anlaşılır örnek sorular (Seed Data)
 const INITIAL_PUZZLES: Puzzle[] = [
   {
     id: "puz-01",
-    slug: "iki-sayinin-toplami",
-    title: "İki Sayının Toplamı",
+    slug: "iki-sayiyi-toplama",
+    title: "İki Sayıyı Toplama",
     difficulty: "kolay",
-    category: "Diziler ve Nesneler",
-    description: "Verilen bir tamsayı dizisi `nums` ve bir hedef tamsayı `target` için, toplamları `target` eden iki sayının dizideki indislerini döndürün.",
+    category: "Temel Matematik",
+    description: "Verilen iki sayıyı toplayıp sonucunu döndüren bir fonksiyon yazın.",
     starterCode: {
-      javascript: `function twoSum(nums, target) {\n  // Çözümünüzü buraya yazın\n  return [0, 1];\n}`,
-      python: `def two_sum(nums, target):\n    # Çözümünüzü buraya yazın\n    return [0, 1]`,
+      javascript: `function topla(a, b) {\n  // Çözümünüzü buraya yazın\n  return a + b;\n}`,
+      python: `def topla(a, b):\n    # Çözümünüzü buraya yazın\n    return a + b`,
     },
     testCases: [
       {
         id: "tc-1",
-        input: "[2, 7, 11, 15], 9",
-        expectedOutput: "[0, 1]",
-        explanation: "nums[0] + nums[1] == 9, bu yüzden [0, 1] döndürülür.",
+        input: "a = 3, b = 5",
+        expectedOutput: "8",
+        explanation: "3 + 5 = 8",
       },
       {
         id: "tc-2",
-        input: "[3, 2, 4], 6",
-        expectedOutput: "[1, 2]",
+        input: "a = 10, b = 20",
+        expectedOutput: "30",
       },
     ],
     hints: [
-      "İç içe iki döngü O(n^2) sürede çözer. Daha hızlı bir yol için bir Sözlük (Hash Map) kullanmayı deneyebilirsiniz.",
+      "Toplama işlemi için artı (+) operatörünü kullanabilirsiniz.",
     ],
     points: 10,
   },
   {
     id: "puz-02",
-    slug: "metni-ters-cevirme",
-    title: "Metni Ters Çevirme",
+    slug: "kelimeyi-ters-cevirme",
+    title: "Kelimeyi Ters Çevirme",
     difficulty: "kolay",
-    category: "Karakter Dizileri (Strings)",
-    description: "Verilen bir karakter dizisini (string) tersine çeviren bir fonksiyon yazın.",
+    category: "Metin İşlemleri",
+    description: "Verilen bir kelimeyi tersten yazan bir fonksiyon yazın (Örn: 'kod' -> 'dok').",
     starterCode: {
-      javascript: `function reverseString(str) {\n  // Çözümünüzü buraya yazın\n  return "";\n}`,
-      python: `def reverse_string(s):\n    # Çözümünüzü buraya yazın\n    return ""`,
+      javascript: `function tersCevir(kelime) {\n  // Çözümünüzü buraya yazın\n  return kelime;\n}`,
+      python: `def ters_cevir(kelime):\n    # Çözümünüzü buraya yazın\n    return kelime`,
     },
     testCases: [
       {
@@ -59,12 +59,12 @@ const INITIAL_PUZZLES: Puzzle[] = [
       },
       {
         id: "tc-2",
-        input: '"tryfinally"',
-        expectedOutput: '"yllanifyrt"',
+        input: '"kod"',
+        expectedOutput: '"dok"',
       },
     ],
     hints: [
-      "JavaScript'te split(''), reverse() ve join('') fonksiyonlarını düşünebilirsiniz. Python'da ise string dilimleme [::-1] oldukça etkilidir.",
+      "Metindeki harfleri sondan başa doğru sırayla okumayı düşünebilirsiniz.",
     ],
     points: 10,
   },

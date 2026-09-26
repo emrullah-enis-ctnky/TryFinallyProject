@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Code2, MessageSquare, BookOpen, Sparkles, ArrowRight, ShieldCheck, Zap, Terminal } from "lucide-react";
+import { Code2, MessageSquare, ArrowRight, Sparkles } from "lucide-react";
 import { getPuzzles, PuzzleCard } from "@/features/puzzles";
 import { getForumThreads, ForumThreadCard } from "@/features/forum";
 import { getUserStats, UserStatsCard } from "@/features/gamification";
@@ -14,91 +14,49 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-12">
-      {/* Karşılama (Hero Section) */}
-      <section className="text-center max-w-3xl mx-auto pt-6 pb-4 space-y-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary border border-border text-xs text-muted-foreground">
-          <Zap className="w-3.5 h-3.5 text-accent" />
-          <span>Kurulumsuz, Tarayıcı Tabanlı Kodlama Deneyimi</span>
-        </div>
-        <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-foreground">
-          Yazılıma Yeni Başlayanlar İçin <br />
-          <span className="text-primary">Korkusuz Kodlama Platformu</span>
+      {/* Sade ve Samimi Karşılama (Hero Section) */}
+      <section className="text-center max-w-2xl mx-auto pt-6 pb-2 space-y-4">
+        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+          Yazılıma İlk Adımını At
         </h1>
-        <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-          Karmaşık ortam kurulumları yok. Hata yaptığında seni azarlamayan,{" "}
-          <strong>Akıllı Kod Asistanı</strong> ile samimi Türkçe rehberlik sunan
-          açık kaynaklı topluluk ve pratik platformu.
+        <p className="text-base text-muted-foreground leading-relaxed">
+          Kod yazmayı öğren, eğlenceli pratikler yap ve takıldığın her an
+          topluluktan ve asistanından yardım al.
         </p>
 
-        {/* Hızlı Aksiyon Butonları */}
-        <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+        {/* Butonlar */}
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <Link
             href="/puzzles"
-            className="flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-95 transition-opacity shadow-md"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-95 transition-opacity cursor-pointer shadow-sm"
           >
             <Code2 className="w-4 h-4" />
-            <span>Hemen Kodlamaya Başla</span>
+            <span>Pratik Yapmaya Başla</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
             href="/forum"
-            className="flex items-center gap-2 px-6 py-3 rounded-lg bg-secondary text-secondary-foreground font-semibold text-sm hover:bg-secondary/80 border border-border transition-colors"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-secondary text-secondary-foreground font-semibold text-sm hover:bg-secondary/80 border border-border transition-colors cursor-pointer"
           >
-            <MessageSquare className="w-4 h-4 text-accent" />
-            <span>Topluluk Forumu</span>
+            <MessageSquare className="w-4 h-4 text-primary" />
+            <span>Soru Sor & Keşfet</span>
           </Link>
         </div>
       </section>
 
-      {/* Öne Çıkan Özellik Rozetleri */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="p-5 rounded-lg border border-border bg-surface text-surface-foreground space-y-2">
-          <div className="p-2.5 w-fit rounded-lg bg-primary/10 text-primary">
-            <Terminal className="w-5 h-5" />
-          </div>
-          <h3 className="font-bold text-foreground">Tarayıcıda Güvenli Koşturucu</h3>
-          <p className="text-xs text-muted-foreground leading-relaxed">
-            JavaScript Web Worker ve Python Pyodide ile kodlarınız kendi tarayıcınızda,
-            sıfır sunucu bekleme süresiyle anında çalışır.
-          </p>
-        </div>
-
-        <div className="p-5 rounded-lg border border-border bg-surface text-surface-foreground space-y-2">
-          <div className="p-2.5 w-fit rounded-lg bg-accent/10 text-accent">
-            <Sparkles className="w-5 h-5" />
-          </div>
-          <h3 className="font-bold text-foreground">Akıllı Asistan Mentörlüğü</h3>
-          <p className="text-xs text-muted-foreground leading-relaxed">
-            Hata aldığınızda doğrudan cevabı vermek yerine hatanın mantığını açıklayan,
-            size özel yönlendirici ipuçları sunulur.
-          </p>
-        </div>
-
-        <div className="p-5 rounded-lg border border-border bg-surface text-surface-foreground space-y-2">
-          <div className="p-2.5 w-fit rounded-lg bg-secondary text-primary">
-            <ShieldCheck className="w-5 h-5" />
-          </div>
-          <h3 className="font-bold text-foreground">Sunucu Odaklı Veri Güvenliği</h3>
-          <p className="text-xs text-muted-foreground leading-relaxed">
-            Çözümleriniz, forum tartışmalarınız ve kazandığınız rozetler sunucu
-            tarafındaki veritabanında güvenle saklanır.
-          </p>
-        </div>
-      </section>
-
-      {/* Kullanıcı Durumu (Gamification Önizlemesi) */}
-      <section className="space-y-4">
+      {/* İlerleme ve İstatistikler (Kullanıcının Sevdiği Gamification Bölümü) */}
+      <section className="space-y-3">
         <UserStatsCard stats={stats} />
       </section>
 
-      {/* Örnek Sorular ve AI Kartı */}
+      {/* Sorular ve Asistan Alanı */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Sol Kolon: Öne Çıkan Sorular */}
+        {/* Sol Kolon: Başlangıç Soruları */}
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
-              <Code2 className="w-5 h-5 text-primary" />
-              <span>Başlangıç Seviyesi Algoritma Soruları</span>
+            <h2 className="text-base font-bold text-foreground flex items-center gap-2">
+              <Code2 className="w-4 h-4 text-primary" />
+              <span>Başlangıç Pratikleri</span>
             </h2>
             <Link href="/puzzles" className="text-xs text-primary hover:underline flex items-center gap-1">
               <span>Tümünü Gör</span>
@@ -113,28 +71,28 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Sağ Kolon: Gemini AI Örnek Rehberi */}
+        {/* Sağ Kolon: Akıllı Yardım Alanı */}
         <div className="space-y-4">
-          <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-accent" />
-            <span>Akıllı Asistan Örneği</span>
+          <h2 className="text-base font-bold text-foreground flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-accent" />
+            <span>Yardımcı Rehber</span>
           </h2>
           <AiExplanationCard
             explanation={{
-              simpleExplanation: "Döngü sınırını dizinin uzunluğundan (nums.length) 1 fazla tanımladığınız için 'IndexOutOfBounds' hatası aldınız.",
-              suggestedConcept: "Sıfır Tabanlı İndisleme (Zero-based Indexing)",
-              encouragingMessage: "Döngü koşulunu 'i < nums.length' olarak güncellediğinizde kodunuz mükemmel çalışacaktır!",
+              simpleExplanation: "Kodundaki küçük bir parantez veya noktalı virgül eksikliği bile bilgisayarın kafasını karıştırabilir.",
+              suggestedConcept: "Kod Satırlarını Sırayla Takip Etmek",
+              encouragingMessage: "Hata yapmak öğrenmenin en doğal parçasıdır. Sakince tekrar dene!",
             }}
           />
         </div>
       </div>
 
-      {/* Topluluk Tartışmaları */}
+      {/* Topluluk Paylaşımları */}
       <section className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
-            <MessageSquare className="w-5 h-5 text-accent" />
-            <span>Topluluktan Son Tartışmalar</span>
+          <h2 className="text-base font-bold text-foreground flex items-center gap-2">
+            <MessageSquare className="w-4 h-4 text-accent" />
+            <span>Topluluktan Son Sorular</span>
           </h2>
           <Link href="/forum" className="text-xs text-primary hover:underline flex items-center gap-1">
             <span>Foruma Git</span>
