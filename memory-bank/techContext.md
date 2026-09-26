@@ -40,7 +40,7 @@ Bu belge, **TryFinally** projesinde kullanılan teknolojileri, geliştirme ortam
 Hassas bilgiler `.env.local` içinde saklanır ve `.env.example` dosyasında şablonu bulunur:
 
 * `GEMINI_API_KEY`: Google Gemini API anahtarı (Google AI Studio'dan alınır).
-* `GEMINI_MODEL`: Kullanılan model (`gemini-1.5-flash`).
+* `GEMINI_MODEL`: Kullanılan model (`gemini-3.8-flash`).
 * `DATABASE_URL`: Sunucu veritabanı bağlantı adresi.
 * `NEXT_PUBLIC_APP_URL`: Uygulama alan adı (`http://localhost:3000`).
 * `NEXT_PUBLIC_LOG_LEVEL`: Log seviyesi (`debug`, `info`, `warn`, `error`).

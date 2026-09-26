@@ -117,7 +117,7 @@ cp .env.example .env.local
 ```env
 # https://aistudio.google.com/app/apikey adresinden ücretsiz alabilirsiniz
 GEMINI_API_KEY=sizin_gemini_api_anahtariniz
-GEMINI_MODEL=gemini-1.5-flash
+GEMINI_MODEL=gemini-3.8-flash
 DATABASE_URL="file:./dev.db"
 NODE_ENV=development
 NEXT_PUBLIC_LOG_LEVEL=debug
