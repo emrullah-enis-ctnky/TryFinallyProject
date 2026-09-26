@@ -26,7 +26,7 @@ export default async function HomePage() {
         </h1>
         <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
           Karmaşık ortam kurulumları yok. Hata yaptığında seni azarlamayan,{" "}
-          <strong>Google Gemini 3.8 Flash</strong> ile samimi Türkçe rehberlik sunan
+          <strong>Akıllı Kod Asistanı</strong> ile samimi Türkçe rehberlik sunan
           açık kaynaklı topluluk ve pratik platformu.
         </p>
 
@@ -67,7 +67,7 @@ export default async function HomePage() {
           <div className="p-2.5 w-fit rounded-lg bg-accent/10 text-accent">
             <Sparkles className="w-5 h-5" />
           </div>
-          <h3 className="font-bold text-foreground">Gemini 3.8 Flash Mentörlüğü</h3>
+          <h3 className="font-bold text-foreground">Akıllı Asistan Mentörlüğü</h3>
           <p className="text-xs text-muted-foreground leading-relaxed">
             Hata aldığınızda doğrudan cevabı vermek yerine hatanın mantığını açıklayan,
             size özel yönlendirici ipuçları sunulur.

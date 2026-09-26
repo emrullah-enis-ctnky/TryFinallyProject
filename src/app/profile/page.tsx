@@ -9,12 +9,12 @@ export default async function ProfilePage() {
       {/* Kullanıcı Başlık Kartı */}
       <div className="p-6 rounded-lg border border-border bg-surface text-surface-foreground shadow-sm flex flex-col sm:flex-row items-center sm:items-start justify-between gap-6">
         <div className="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
-          <div className="w-20 h-20 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center text-primary text-2xl font-black">
-            EY
+          <div className="w-20 h-20 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center text-primary text-xl font-black">
+            AK
           </div>
           <div>
             <div className="flex items-center justify-center sm:justify-start gap-2">
-              <h1 className="text-2xl font-black text-foreground">Enis Yılmaz</h1>
+              <h1 className="text-2xl font-black text-foreground">Ahmet Efe Kazıcı</h1>
               <span className="text-xs px-2 py-0.5 rounded-full bg-accent/20 text-accent font-semibold">
                 Seviye 2
               </span>

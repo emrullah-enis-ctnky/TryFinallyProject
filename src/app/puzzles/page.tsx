@@ -21,7 +21,7 @@ export default async function PuzzlesPage() {
         </div>
         <div className="flex items-center gap-2 text-xs px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 w-fit">
           <Sparkles className="w-4 h-4" />
-          <span>Gemini 3.8 Flash Destekli</span>
+          <span>Akıllı İpucu Desteği</span>
         </div>
       </div>
 

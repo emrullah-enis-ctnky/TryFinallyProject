@@ -24,7 +24,7 @@ export const AiExplanationCard: React.FC<AiExplanationCardProps> = ({ explanatio
         <div className="p-1.5 rounded-md bg-primary/20 text-primary">
           <Sparkles className="w-4 h-4" />
         </div>
-        <h4 className="text-sm font-bold text-foreground">Gemini 3.8 Flash Rehberi</h4>
+        <h4 className="text-sm font-bold text-foreground">Akıllı Kod Rehberi</h4>
       </div>
 
       <p className="text-sm text-foreground/90 leading-relaxed mb-3">

@@ -89,21 +89,21 @@ export default function PuzzleDetailPage({ params }: PuzzleDetailProps) {
             </div>
           </div>
 
-          {/* İpucu Butonu & Gemini Rehberi */}
+          {/* İpucu Butonu & Akıllı Rehber */}
           <div className="pt-4 border-t border-border space-y-3">
             <button
               onClick={() => setShowHint(!showHint)}
               className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-secondary hover:bg-secondary/80 text-foreground text-xs font-semibold cursor-pointer transition-colors"
             >
               <Lightbulb className="w-4 h-4 text-accent" />
-              <span>{showHint ? "İpucunu Gizle" : "Gemini 3.8 Flash İpucu İste"}</span>
+              <span>{showHint ? "İpucunu Gizle" : "Akıllı İpucu İste"}</span>
             </button>
 
             {showHint && (
               <div className="p-3 rounded-lg bg-primary/10 border border-primary/20 text-xs text-foreground space-y-1">
                 <div className="flex items-center gap-1.5 font-bold text-primary">
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>AI Pedagojik İpucu:</span>
+                  <span>Akıllı Çözüm İpucu:</span>
                 </div>
                 <p className="text-muted-foreground leading-relaxed">
                   İç içe iki döngü O(n²) karmaşıklığa yol açar. Tek geçişte çözmek için, şu ana kadar gördüğünüz sayıları bir sözlükte (Hash Map) saklamayı düşündünüz mü?
