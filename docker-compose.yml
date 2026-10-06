@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: tryfinally_db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpassword
+      POSTGRES_DB: tryfinally
+    ports:
+      - "5433:5432"
+    volumes:
+      - tryfinally_pg_data:/var/lib/postgresql/data
+
+volumes:
+  tryfinally_pg_data:
