@@ -100,6 +100,7 @@ TryFinallyProject/
 * **Node.js:** `v26.8.0` veya üzeri
 * **npm:** `v12.0.0` veya üzeri
 * **Terminal Proxy (RTK):** Tüm terminal komutları token tasarrufu ve optimizasyon için `rtk` ile çalıştırılmalıdır.
+* **Docker Desktop:** Yerel veri tabanı için gerekli (PostgreSQL)
 
 ### 1. Depoyu Klonlayın
 ```bash
@@ -118,7 +119,7 @@ cp .env.example .env.local
 # https://aistudio.google.com/app/apikey adresinden ücretsiz alabilirsiniz
 GEMINI_API_KEY=sizin_gemini_api_anahtariniz
 GEMINI_MODEL=gemini-3.8-flash
-DATABASE_URL="file:./dev.db"
+DATABASE_URL="postgresql://admin:adminpassword@localhost:5433/tryfinally?schema=public"
 NODE_ENV=development
 NEXT_PUBLIC_LOG_LEVEL=debug
 ```
@@ -126,6 +127,15 @@ NEXT_PUBLIC_LOG_LEVEL=debug
 ### 3. Bağımlılıkları Yükleyin
 ```bash
 rtk npm install
+```
+#### 3.1 Yerel Veritabanını (PostgreSQL) Başlatın ve Tabloları Kurun
+* Docker Desktop'ın arka planda çalıştığından emin olun ve veritabanı konteynerini ayağa kaldırın:
+```bash
+rtk docker-compose up -d
+```
+* Veritabanı ayağa kalktıktan sonra Prisma şemasını uygulayarak tabloları oluşturun:
+```bash
+rtk npx prisma migrate dev
 ```
 
 ### 4. Geliştirme Sunucusunu Başlatın
