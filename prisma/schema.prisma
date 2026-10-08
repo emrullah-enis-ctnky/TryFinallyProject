@@ -24,6 +24,8 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+
+  role          Role      @default(USER)
   
   totalPoints   Int       @default(0)
   level         Int       @default(1)
@@ -84,6 +86,12 @@ enum SubStatus {
   TIME_LIMIT
 }
 
+enum Language {
+  CPP
+  JAVA
+  PYTHON
+}
+
 // Soru modeli
 model Puzzle {
   id            String       @id @default(cuid())
@@ -115,6 +123,7 @@ model Submission {
   puzzle      Puzzle    @relation(fields: [puzzleId], references: [id])
   
   code        String    @db.Text
+  language    Language
   status      SubStatus
   createdAt   DateTime  @default(now())
 }

@@ -1,6 +1,8 @@
 import { User, Award, Flame, CheckCircle, MessageSquare, Shield, Calendar } from "lucide-react";
 import { getUserStats, UserStatsCard } from "@/features/gamification";
 
+import { SignOutButton } from "@/components/profile/SignOutButton";
+
 export default async function ProfilePage() {
   const stats = await getUserStats();
 
@@ -37,10 +39,16 @@ export default async function ProfilePage() {
         </div>
 
         {/* Sıralama & Başarı */}
-        <div className="flex flex-col items-center sm:items-end gap-1 text-xs">
-          <span className="text-muted-foreground">Genel Sıralama</span>
-          <span className="text-2xl font-black text-primary">#42</span>
-          <span className="text-muted-foreground">İlk %5&apos;lik dilim</span>
+        <div className="flex flex-col items-center sm:items-end gap-3">
+          {/* Sıralama */}
+          <div className="flex flex-col items-center sm:items-end gap-1 text-xs">
+            <span className="text-muted-foreground">Genel Sıralama</span>
+            <span className="text-2xl font-black text-primary">#42</span>
+            <span className="text-muted-foreground">İlk %5&apos;lik dilim</span>
+          </div>
+
+          {/* Çıkış Yap Butonunu Buraya Ekledik */}
+          <SignOutButton />
         </div>
       </div>
 
