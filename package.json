@@ -17,6 +17,7 @@
     "next-auth": "^5.0.0-beta.32",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "sonner": "^2.0.8",
     "tailwind-merge": "^3.0.2"
   },
   "devDependencies": {
