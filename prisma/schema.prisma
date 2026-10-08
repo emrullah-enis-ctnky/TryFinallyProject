@@ -3,41 +3,172 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "postgresql" 
 }
 
+
+// *****************************
+// Temel tablolar
+// *****************************
+
+// Admin sayfası vesaire eklersek diye rol enum'u
+enum Role {
+  ADMIN
+  USER
+}
+
+// Kullanıcı modeli
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  username  String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  
+  totalPoints   Int       @default(0)
+  level         Int       @default(1)
+  
+  // İlişkiler
+  submissions   Submission[]
+  threads       Thread[]
+  comments      Comment[]
+  achievements  UserAchievement[]
 
-  submissions Submission[]
+  accounts      Account[]
+  sessions      Session[]
 }
 
+// Bu tablo ile işiniz yok
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+// Bu tablo ile işiniz yok
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ***************************
+// Kodlama sistemi
+// ***************************
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+// Sunucunun döneceği sonuçlar için enum
+enum SubStatus {
+  SUCCESS
+  FAILED
+  TIME_LIMIT
+}
+
+// Soru modeli
 model Puzzle {
-  id          String   @id @default(cuid())
-  title       String
-  description String
-  difficulty  String   
-  testCases   Json     
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  submissions Submission[]
+  id            String       @id @default(cuid())
+  title         String
+  description   String
+  difficulty    Difficulty
+  category      String       // Başlıklara ayırmak için. Diziler, döngüler gibi 
+  starterCode   String       // Leetcode'da Solition class'ı oluyordu soruları açınca. Bu o ilk kodu
+  pointsAwarded Int          // Çözülünce verilecek puan
+  
+  testCases     TestCase[]   // Leetcode'daki soruların altında 2-3 tane olan örnek testler
+  submissions   Submission[]
+}
+// Sorular için testlerin modeli
+model TestCase {
+  id             String  @id @default(cuid())
+  puzzleId       String
+  puzzle         Puzzle  @relation(fields: [puzzleId], references: [id])
+  input          String  
+  expectedOutput String  
 }
 
+// Kullanıcıların yükleyeceği cevapların modeli
 model Submission {
-  id        String   @id @default(cuid())
-  code      String   
-  language  String   
-  status    String   
-  createdAt DateTime @default(now())
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  puzzleId    String
+  puzzle      Puzzle    @relation(fields: [puzzleId], references: [id])
+  
+  code        String    @db.Text
+  status      SubStatus
+  createdAt   DateTime  @default(now())
+}
 
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
+// *****************************
+// Forum kısmı
+// *****************************
 
-  puzzle   Puzzle @relation(fields: [puzzleId], references: [id])
-  puzzleId String
+// Forumda açılan her başlığın temsili
+model Thread {
+  id          String    @id @default(cuid())
+  title       String
+  content     String    @db.Text
+  authorId    String
+  author      User      @relation(fields: [authorId], references: [id])
+  views       Int       @default(0)
+  isResolved  Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  
+  comments    Comment[]
+}
+// Başlık altındaki yorumların modeli
+model Comment {
+  id               String   @id @default(cuid())
+  content          String   @db.Text
+  threadId         String
+  thread           Thread   @relation(fields: [threadId], references: [id])
+  authorId         String
+  author           User     @relation(fields: [authorId], references: [id])
+  isAcceptedAnswer Boolean  @default(false)
+  createdAt        DateTime @default(now())
+}
+
+// ********************************
+// Başarım sistemi
+// ********************************
+
+// Başarımların modeli
+model Achievement {
+  id          String    @id @default(cuid())
+  name        String    
+  description String
+  icon        String    
+  
+  users       UserAchievement[]
+}
+
+// Kullanıcılarla başarımlar arasında bir Relation (Richard hocam öğretti bunları sağolsun)
+model UserAchievement {
+  userId        String
+  user          User        @relation(fields: [userId], references: [id])
+  achievementId String
+  achievement   Achievement @relation(fields: [achievementId], references: [id])
+  unlockedAt    DateTime    @default(now())
+
+  @@id([userId, achievementId]) // 1'e 1 ilişki
 }
