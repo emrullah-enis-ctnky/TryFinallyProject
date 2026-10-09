@@ -9,9 +9,9 @@
 
 export interface CodeErrorExplanationRequest {
   code: string;
-  language: "javascript" | "python";
+  language: "cpp" | "java" | "python";
   errorMessage: string;
-  puzzleDescription?: string;
+  problemDescription?: string;
 }
 
 export interface CodeErrorExplanationResponse {
@@ -21,10 +21,10 @@ export interface CodeErrorExplanationResponse {
 }
 
 export interface CodeHintRequest {
-  puzzleTitle: string;
-  puzzleDescription: string;
+  problemTitle: string;
+  problemDescription: string;
   userCode: string;
-  language: "javascript" | "python";
+  language: "cpp" | "java" | "python";
   hintLevel: 1 | 2 | 3; // 1: Küçük ipucu, 2: Mantıksal yönlendirme, 3: Sözde kod yaklaşımı
 }
 

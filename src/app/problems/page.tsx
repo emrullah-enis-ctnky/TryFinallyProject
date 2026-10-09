@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { Code2, Search, Filter, Sparkles } from "lucide-react";
-import { getPuzzles } from "@/features/puzzles";
-import { DifficultyBadge } from "@/features/puzzles/ui";
+import { getProblems } from "@/features/problems";
+import { DifficultyBadge, TopicBadges } from "@/features/problems/ui";
 
-export default async function PuzzlesPage() {
-  const puzzles = await getPuzzles();
+export default async function ProblemsPage() {
+  const problems = await getProblems();
 
   return (
     <div className="space-y-8">
@@ -55,28 +55,28 @@ export default async function PuzzlesPage() {
 
       {/* Soru Listesi */}
       <div className="space-y-3">
-        {puzzles.map((puzzle) => (
+        {problems.map((problem) => (
           <Link
-            key={puzzle.id}
-            href={`/puzzles/${puzzle.slug}`}
+            key={problem.id}
+            href={`/problems/${problem.slug}`}
             className="block p-5 rounded-lg border border-border bg-surface text-surface-foreground hover:border-primary/50 transition-all shadow-sm group"
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <DifficultyBadge difficulty={puzzle.difficulty} />
-                  <span className="text-xs text-muted-foreground">{puzzle.category}</span>
+                  <DifficultyBadge difficulty={problem.difficulty} />
+                  <TopicBadges topics={problem.topics} />
                 </div>
                 <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
-                  {puzzle.title}
+                  {problem.title}
                 </h3>
                 <p className="text-sm text-muted-foreground line-clamp-1 mt-1">
-                  {puzzle.description}
+                  {problem.description}
                 </p>
               </div>
 
               <div className="flex items-center gap-4 text-xs text-muted-foreground shrink-0">
-                <span className="font-semibold text-foreground">+{puzzle.points} Puan</span>
+                <span className="font-semibold text-foreground">+{problem.points} Puan</span>
                 <span className="px-3 py-1.5 rounded-md bg-secondary text-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-colors font-medium">
                   Çöz
                 </span>

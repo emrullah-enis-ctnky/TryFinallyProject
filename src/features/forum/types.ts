@@ -37,7 +37,7 @@ export interface ForumThread {
   authorId: string;
   authorName: string;
   authorAvatar?: string;
-  puzzleId?: string; // İlgili algoritma sorusu varsa bağlantısı
+  problemId?: string; // İlgili problem varsa bağlantısı
   createdAt: string;
   updatedAt: string;
   votes: number;

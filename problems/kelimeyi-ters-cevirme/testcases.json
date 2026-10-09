@@ -1,0 +1,8 @@
+{
+  "cases": [
+    { "id": "tc-01", "input": ["merhaba"], "expectedOutput": "abahrem", "isHidden": false },
+    { "id": "tc-02", "input": ["kod"], "expectedOutput": "dok", "isHidden": false },
+    { "id": "tc-03", "input": [""], "expectedOutput": "", "isHidden": false },
+    { "id": "tc-04", "input": ["a"], "expectedOutput": "a", "isHidden": true }
+  ]
+}

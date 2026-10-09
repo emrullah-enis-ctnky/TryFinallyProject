@@ -51,7 +51,7 @@ const INITIAL_ROADMAP: RoadmapModule[] = [
         order: 1,
         durationMinutes: 20,
         isCompleted: false,
-        relatedPuzzleIds: ["puz-01"],
+        relatedProblemIds: ["iki-sayiyi-toplama"],
       },
     ],
   },

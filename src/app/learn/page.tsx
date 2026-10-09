@@ -129,7 +129,7 @@ export default function LearnPage() {
           {/* Alt Eylemler */}
           <div className="pt-4 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
             <Link
-              href="/puzzles/iki-sayinin-toplami"
+              href="/problems/iki-sayiyi-toplama"
               className="inline-flex items-center gap-2 text-xs font-semibold text-primary hover:underline"
             >
               <Code2 className="w-4 h-4" />

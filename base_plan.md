@@ -12,7 +12,7 @@ Bu belge, **TryFinally** projesinin geliştirme adımlarını, takım kararları
   * Next.js, TypeScript, Tailwind CSS ve temel yapılandırmaların oluşturulması.
   * `.env.example` dosyasının doğrulanması ve yerel `.env.local` oluşturulması.
 * [x] **0.2 Modüler Klasör Yapısının Kurulması (`src/features/`)**
-  * `forum`, `puzzles`, `runner`, `learn`, `gamification`, `ai` modül klasörlerinin oluşturulması.
+  * `forum`, `problems`, `runner`, `learn`, `gamification`, `ai` modül klasörlerinin oluşturulması.
   * Her modülün içine `types.ts`, `service.ts`, `ui.tsx`, `index.ts` dosyalarının yerleştirilmesi.
 * [x] **0.3 Merkezi Log Servisi (`src/lib/logger.ts`)**
   * `debug`, `info`, `warn`, `error` seviyelerini yöneten merkezi logger yapısının kurulması.
@@ -33,7 +33,7 @@ Bu belge, **TryFinally** projesinin geliştirme adımlarını, takım kararları
   * UI temel bileşenlerinin eklenmesi (`Button`, `Card`, `Badge`, `Input`, vb.).
   * Kök layout, üst menü (Navbar), alt bilgi (Footer) ve tema desteğinin ayarlanması.
 * [x] **1.3 Taslak Ekranların Geliştirilmesi (Mock Verilerle)**
-  * **Kodlama & Soru Paneli Taslağı (`/puzzles` ve `/puzzles/[slug]`):** Sol tarafta soru kartı, sağda hafif mock kod editör alanı, altta konsol/çıktı paneli ve Gemini AI ipucu butonu.
+  * **Problem Paneli Taslağı (`/problems` ve `/problems/[slug]`):** Sol tarafta problem metni, sağda kod editör alanı ve test sonuçları.
   * **Topluluk Forumu Taslağı (`/forum` ve `/forum/[id]`):** Başlık listesi, arama/filtreleme, başlık detay görünümü ve yanıt formu.
   * **Yol Haritası & Öğrenme Taslağı (`/learn`):** Konu adımları haritası ve içerik okuma paneli.
   * **Profil & İlerleme Taslağı (`/profile`):** Skor kartları, çözülen soru istatistikleri ve rozet vitrini.
@@ -48,25 +48,22 @@ Bu belge, **TryFinally** projesinin geliştirme adımlarını, takım kararları
   * PostgreSQL / SQLite ORM şemasının (kullanıcılar, sorular, test senaryoları, forum başlıkları, yorumlar, çözümler) oluşturulması.
 * [ ] **2.2 Forum Servisi (`features/forum/service.ts`)**
   * Konu açma, yanıtlama, oylama ve etiketleme için Server Actions / API fonksiyonlarının yazılması.
-* [ ] **2.3 Algoritma ve Soru Servisi (`features/puzzles/service.ts`)**
-  * Soruları getirme, filtreleme ve çözüm geçmişi kaydetme servislerinin yazılması.
+* [ ] **2.3 Problem Servisi (`features/problems/service.ts`)**
+  * `problems/<slug>/` altındaki üç dilli Markdown metinlerini ve test verilerini yükleme servisinin yazılması.
 * [ ] **2.4 Gamification Servisi (`features/gamification/service.ts`)**
   * Puan hesaplama, streak ve rozet kazanım kurallarının kodlanması.
 * [ ] **2.5 Başlangıç İçerikleri (Seed Data)**
-  * Yeni başlayanlar için 10 örnek algoritma sorusu, test case'leri ve başlangıç konu anlatımı verilerinin hazırlanması.
+  * Yeni başlayanlar için 10 örnek problemi `problems/<slug>/` altında Türkçe, İngilizce ve Almanca Markdown metinleriyle ve judge testleriyle hazırlamak.
 
 ---
 
-## Faz 3: Tarayıcı İçi İzole Kod Koşturucu (Runner) ve Güvenlik Altyapısı
+## Faz 3: C++, Java ve Python Kod Koşturucu (Runner) ve Güvenlik Altyapısı
 
 > Kullanıcı kodlarının sunucuya yük bindirmeden doğrudan istemci tarayıcısında güvenle çalışmasını sağlar.
 
-* [ ] **3.1 JavaScript Web Worker Koşturucusu (`features/runner/service.ts`)**
-  * Ana thread'i dondurmayan Web Worker altyapısı.
-  * 3 saniyelik zaman aşımı (infinite loop koruması) ve bellek limiti yönetimi.
-  * `console.log` çıktılarının yakalanarak ekrandaki konsola aktarılması.
-* [ ] **3.2 Python Pyodide (WASM) Entegrasyonu**
-  * Tarayıcı üzerinde çalışan Python motorunun kurulması ve girdi/çıktı akışlarının bağlanması.
+* [ ] **3.1 C++, Java ve Python çalışma motorlarının entegrasyonu (`features/runner/service.ts`)**
+  * Seçilen dilde `Solution` sınıfındaki metodu çalıştıran güvenli yürütme altyapısı.
+  * Zaman aşımı ve çıktıların konsola aktarılması.
 * [ ] **3.3 Test Case Değerlendirme Motoru**
   * Kod çıktısı ile beklenen test case sonuçlarını karşılaştıran ve başarı/başarısızlık üreten motorun yazılması.
 

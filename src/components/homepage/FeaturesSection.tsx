@@ -1,13 +1,13 @@
 
 import Link from "next/link";
 import { ArrowRight, Target } from "lucide-react";
-import { PuzzleCard } from "@/features/puzzles";
+import { ProblemCard } from "@/features/problems";
 
 type FeaturesSectionProps = {
-  puzzles: Awaited<ReturnType<typeof import("@/features/puzzles").getPuzzles>>;
+  problems: Awaited<ReturnType<typeof import("@/features/problems").getProblems>>;
 };
 
-export default function FeaturesSection({ puzzles }: FeaturesSectionProps) {
+export default function FeaturesSection({ problems }: FeaturesSectionProps) {
   return (
     <section
       id="features"
@@ -52,7 +52,7 @@ export default function FeaturesSection({ puzzles }: FeaturesSectionProps) {
             <h3 className="font-bold text-foreground">Örnek Pratikler</h3>
 
             <Link
-              href="/puzzles"
+              href="/problems"
               className="text-sm text-primary hover:underline"
             >
               Tümünü Gör
@@ -60,8 +60,8 @@ export default function FeaturesSection({ puzzles }: FeaturesSectionProps) {
           </div>
 
           <div className="space-y-3">
-            {puzzles.slice(0, 3).map((puzzle) => (
-              <PuzzleCard key={puzzle.id} puzzle={puzzle} />
+            {problems.slice(0, 3).map((problem) => (
+              <ProblemCard key={problem.id} problem={problem} />
             ))}
           </div>
         </div>

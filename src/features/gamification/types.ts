@@ -18,7 +18,7 @@ export interface Badge {
 export interface UserStats {
   userId: string;
   totalPoints: number;
-  solvedPuzzlesCount: number;
+  solvedProblemsCount: number;
   currentStreakDays: number;
   longestStreakDays: number;
   forumReputation: number;

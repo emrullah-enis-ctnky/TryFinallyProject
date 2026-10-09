@@ -93,7 +93,7 @@ enum Language {
 }
 
 // Soru modeli
-model Puzzle {
+model Problem {
   id            String       @id @default(cuid())
   title         String
   description   String
@@ -104,12 +104,14 @@ model Puzzle {
   
   testCases     TestCase[]   // Leetcode'daki soruların altında 2-3 tane olan örnek testler
   submissions   Submission[]
+
+  @@map("Puzzle")
 }
 // Sorular için testlerin modeli
 model TestCase {
   id             String  @id @default(cuid())
-  puzzleId       String
-  puzzle         Puzzle  @relation(fields: [puzzleId], references: [id])
+  problemId      String  @map("puzzleId")
+  problem        Problem @relation(fields: [problemId], references: [id])
   input          String  
   expectedOutput String  
 }
@@ -119,8 +121,8 @@ model Submission {
   id          String    @id @default(cuid())
   userId      String
   user        User      @relation(fields: [userId], references: [id])
-  puzzleId    String
-  puzzle      Puzzle    @relation(fields: [puzzleId], references: [id])
+  problemId   String    @map("puzzleId")
+  problem     Problem   @relation(fields: [problemId], references: [id])
   
   code        String    @db.Text
   language    Language

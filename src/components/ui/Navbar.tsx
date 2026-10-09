@@ -22,8 +22,8 @@ export async function Navbar() {
           </NavLink>
         )}
         
-        <NavLink href="/puzzles">
-          Sorular
+        <NavLink href="/problems">
+          Problemler
         </NavLink>
         
         <NavLink href="/forum">

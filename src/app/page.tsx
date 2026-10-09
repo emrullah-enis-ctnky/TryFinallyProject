@@ -1,4 +1,4 @@
-import { getPuzzles } from "@/features/puzzles";
+import { getProblems } from "@/features/problems";
 import { getForumThreads } from "@/features/forum";
 import { getUserStats } from "@/features/gamification";
 
@@ -9,8 +9,8 @@ import GamificationSection from "@/components/homepage/GamificationSection";
 import CommunitySection from "@/components/homepage/CommunitySection";
 
 export default async function LandingPage() {
-  const [puzzles, threads, stats] = await Promise.all([
-    getPuzzles(),
+  const [problems, threads, stats] = await Promise.all([
+    getProblems(),
     getForumThreads(),
     getUserStats(),
   ]);
@@ -25,7 +25,7 @@ export default async function LandingPage() {
         
         <Herosection />
 
-        <FeaturesSection puzzles={puzzles} />
+        <FeaturesSection problems={problems} />
 
         <GamificationSection stats={stats} />
 

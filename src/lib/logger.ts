@@ -6,7 +6,7 @@
  * standart bir formatta konsola ve gelecekteki log hedeflerine iletir.
  *
  * KULLANIM ÖRNEKLERİ:
- * logger.info("Runner", "Kod çalıştırma başlatıldı", { puzzleId: "p-01" });
+ * logger.info("Runner", "Kod çalıştırma başlatıldı", { problemId: "add-two-numbers" });
  * logger.warn("Forum", "Kullanıcı taslağı kaydedilemedi, tekrar deneniyor");
  * logger.error("Storage", "Veritabanı bağlantı hatası", error);
  * logger.debug("AI", "Gemini API yanıtı alındı", responseData);

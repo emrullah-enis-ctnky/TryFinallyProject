@@ -106,7 +106,7 @@ export default async function ProfilePage() {
           <div className="py-3 flex items-center justify-between">
             <div>
               <span className="font-bold text-foreground">İki Sayının Toplamı</span>
-              <span className="ml-2 text-muted-foreground">JavaScript ile çözüldü</span>
+              <span className="ml-2 text-muted-foreground">C++ ile çözüldü</span>
             </div>
             <div className="flex items-center gap-3">
               <span className="text-accent font-semibold">+10 Puan</span>
