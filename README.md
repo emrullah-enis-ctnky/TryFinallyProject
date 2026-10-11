@@ -53,6 +53,11 @@ Arayüzde rastgele renk kodları (`#123456`, `bg-blue-600`) kullanmak kesinlikle
 
 🎨 **Tema Nasıl Değişir?** İleride nihai renk paleti belirlendiğinde tek bir konfigürasyon dosyasındaki (`src/lib/theme/`) renk tanımları güncellenir ve A'dan Z'ye tüm platform anında yeni temaya kusursuz bir şekilde bürünür.
 
+### 4. Bağımlılık Yönetimi ve REQUIREMENTS Kuralı
+Projeye rastgele paket eklenemez. **Yeni bir kütüphane veya paket kullanılacağı zaman:**
+* Mutlaka önce veya eklendiği anda [`REQUIREMENTS.md`](REQUIREMENTS.md) dosyasına paketin adı, sürümü, eklenme gerekçesi ve kullanım alanı kaydedilmelidir.
+* Gemini API haricinde hiçbir 3. parti/ücretli harici API paketi projeye dahil edilemez.
+
 ---
 
 ## 📁 Dizin Yapısı
@@ -60,6 +65,7 @@ Arayüzde rastgele renk kodları (`#123456`, `bg-blue-600`) kullanmak kesinlikle
 ```text
 TryFinallyProject/
 ├── .env.example                # Çevre değişkenleri şablonu ve detaylı açıklamaları
+├── REQUIREMENTS.md             # Bağımlılıklar, kütüphaneler ve yeni paket ekleme kuralları
 ├── memory-bank/                # Projenin hafıza bankası (Mimari, kararlar ve ilerleme)
 │   ├── projectbrief.md         # Proje vizyonu, kapsam ve değişmez ilkeler
 │   ├── productContext.md       # Neden var olduğu, çözülen problemler ve UX hedefleri
