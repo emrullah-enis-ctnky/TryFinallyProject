@@ -41,6 +41,11 @@ Bu paketler son kullanıcının deneyiminde ve uygulamanın canlı çalışma za
 | **`sonner`** | `^2.0.8` | Hızlı ve modern toast bildirimleri (başarı, hata ve uyarı mesajları için). |
 | **`clsx`** | `^2.1.1` | Koşullu CSS sınıf isimlerini (class names) temiz şekilde birleştirmek için yardımcı kütüphane. |
 | **`tailwind-merge`** | `^3.0.2` | Tailwind CSS sınıflarını çakışma olmadan dinamik birleştirmek için yardımcı kütüphane. |
+| **`@uiw/react-codemirror`** | `^4.25.12` | Problem çözme ekranında zengin sözdizimi vurgulu kod editörü bileşeni. |
+| **`@codemirror/lang-cpp`** | `^6.0.3` | CodeMirror için C++ dili sözdizimi ve renklendirme desteği. |
+| **`@codemirror/lang-java`** | `^6.0.2` | CodeMirror için Java dili sözdizimi ve renklendirme desteği. |
+| **`@codemirror/lang-python`** | `^6.2.1` | CodeMirror için Python dili sözdizimi ve renklendirme desteği. |
+| **`@codemirror/theme-one-dark`** | `^6.1.3` | Kod editörü için koyu tema (One Dark) eklentisi. |
 
 ---
 

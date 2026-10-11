@@ -1,8 +1,13 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState, useMemo, type ReactNode } from "react";
 import Link from "next/link";
 import { ArrowLeft, Lightbulb, Play, Send, Terminal } from "lucide-react";
+import CodeMirror from "@uiw/react-codemirror";
+import { cpp } from "@codemirror/lang-cpp";
+import { java } from "@codemirror/lang-java";
+import { python } from "@codemirror/lang-python";
+import { oneDark } from "@codemirror/theme-one-dark";
 import { DifficultyBadge, PROBLEM_CONTENT_LANGUAGES, TopicBadges } from "./ui";
 import type { Problem, ProblemContentLanguage, SupportedLanguage } from "./types";
 
@@ -104,6 +109,19 @@ export function ProblemDetail({ problem }: { problem: Problem }) {
     if (!hasEditedCode) setCode(translation.starterCode[nextLanguage]);
   }
 
+  const languageExtension = useMemo(() => {
+    switch (language) {
+      case "cpp":
+        return cpp();
+      case "java":
+        return java();
+      case "python":
+        return python();
+      default:
+        return cpp();
+    }
+  }, [language]);
+
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -188,21 +206,37 @@ export function ProblemDetail({ problem }: { problem: Problem }) {
             </div>
           </div>
 
-          <div className="min-h-[300px] flex-1 overflow-hidden rounded-lg border border-border bg-[#0d1117] p-4 text-[#c9d1d9]">
-            <div className="mb-3 flex justify-between border-b border-border/40 pb-2 text-[11px] text-muted-foreground/70">
-              <span>Solution.{language === "cpp" ? "cpp" : language === "java" ? "java" : "py"}</span>
-              <span>UTF-8</span>
+          <div className="flex min-h-[350px] flex-1 flex-col overflow-hidden rounded-lg border border-border bg-[#0d1117] text-[#c9d1d9]">
+            <div className="flex items-center justify-between border-b border-border/40 bg-[#090d13] px-4 py-2.5 text-[11px] text-muted-foreground/70">
+              <span className="font-mono">Solution.{language === "cpp" ? "cpp" : language === "java" ? "java" : "py"}</span>
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{language} • UTF-8</span>
             </div>
-            <textarea
-              value={code}
-              onChange={(event) => {
-                setCode(event.target.value);
-                setHasEditedCode(true);
-              }}
-              spellCheck={false}
-              aria-label="Çözüm kodu"
-              className="h-[260px] w-full resize-none bg-transparent font-mono text-xs leading-relaxed text-foreground/90 focus:outline-none"
-            />
+            <div className="flex-1 overflow-auto">
+              <CodeMirror
+                value={code}
+                height="320px"
+                theme={oneDark}
+                extensions={[languageExtension]}
+                onChange={(value) => {
+                  setCode(value);
+                  setHasEditedCode(true);
+                }}
+                basicSetup={{
+                  lineNumbers: true,
+                  highlightActiveLineGutter: true,
+                  foldGutter: true,
+                  dropCursor: true,
+                  allowMultipleSelections: true,
+                  indentOnInput: true,
+                  syntaxHighlighting: true,
+                  bracketMatching: true,
+                  closeBrackets: true,
+                  autocompletion: true,
+                  highlightActiveLine: true,
+                }}
+                className="text-xs font-mono"
+              />
+            </div>
           </div>
 
           <section className="min-h-[210px] overflow-hidden rounded-lg border border-border bg-surface text-surface-foreground">
