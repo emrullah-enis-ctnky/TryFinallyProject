@@ -1,13 +1,11 @@
 "use client";
 
-import { useState, useMemo, type ReactNode } from "react";
+import { useState, useMemo, useEffect, type ReactNode } from "react";
 import Link from "next/link";
-import { ArrowLeft, Lightbulb, Play, Send, Terminal } from "lucide-react";
+import { ArrowLeft, Lightbulb, Play, RotateCcw, Send, Terminal } from "lucide-react";
 import CodeMirror from "@uiw/react-codemirror";
-import { cpp } from "@codemirror/lang-cpp";
-import { java } from "@codemirror/lang-java";
-import { python } from "@codemirror/lang-python";
 import { oneDark } from "@codemirror/theme-one-dark";
+import { getLanguageExtensions } from "./completions";
 import { DifficultyBadge, PROBLEM_CONTENT_LANGUAGES, TopicBadges } from "./ui";
 import type { Problem, ProblemContentLanguage, SupportedLanguage } from "./types";
 
@@ -86,8 +84,14 @@ function formatInputs(input: string, inputNames: string[]): string {
 export function ProblemDetail({ problem }: { problem: Problem }) {
   const [contentLanguage, setContentLanguage] = useState<ProblemContentLanguage>("tr");
   const [language, setLanguage] = useState<SupportedLanguage>("cpp");
-  const [code, setCode] = useState(problem.starterCode.cpp);
-  const [hasEditedCode, setHasEditedCode] = useState(false);
+
+  // Her dil için bağımsız kod önbelleği (C++, Java, Python birbirinden tamamen izole)
+  const [codes, setCodes] = useState<Record<SupportedLanguage, string>>({
+    cpp: problem.starterCode.cpp,
+    java: problem.starterCode.java,
+    python: problem.starterCode.python,
+  });
+
   const [isHintVisible, setIsHintVisible] = useState(false);
   const [activeTestPanel, setActiveTestPanel] = useState<"testcase" | "result">("testcase");
   const [selectedTestCaseId, setSelectedTestCaseId] = useState<string | null>(
@@ -99,27 +103,70 @@ export function ProblemDetail({ problem }: { problem: Problem }) {
   const hiddenCasesCount = problem.testCases.length - visibleCases.length;
   const selectedTestCase = visibleCases.find((testCase) => testCase.id === selectedTestCaseId) ?? visibleCases[0];
 
+  // Sayfa açıldığında bu problem için localStorage'da saklanan kodlar varsa geri yükle
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const storedCpp = localStorage.getItem(`tryfinally_code_${problem.slug}_cpp`);
+      const storedJava = localStorage.getItem(`tryfinally_code_${problem.slug}_java`);
+      const storedPython = localStorage.getItem(`tryfinally_code_${problem.slug}_python`);
+
+      setCodes((prev) => ({
+        cpp: storedCpp ?? prev.cpp,
+        java: storedJava ?? prev.java,
+        python: storedPython ?? prev.python,
+      }));
+    } catch {
+      // localStorage erişim kısıtları durumunda varsayılan kodlar korunur
+    }
+  }, [problem.slug]);
+
+  function handleCodeChange(newCode: string) {
+    setCodes((prev) => ({
+      ...prev,
+      [language]: newCode,
+    }));
+    try {
+      localStorage.setItem(`tryfinally_code_${problem.slug}_${language}`, newCode);
+    } catch {
+      // localStorage hatası yoksayılır
+    }
+  }
+
+  function handleResetCode() {
+    const starter = translation.starterCode[language];
+    setCodes((prev) => ({
+      ...prev,
+      [language]: starter,
+    }));
+    try {
+      localStorage.removeItem(`tryfinally_code_${problem.slug}_${language}`);
+    } catch {
+      // localStorage hatası yoksayılır
+    }
+  }
+
   function updateContentLanguage(nextLanguage: ProblemContentLanguage) {
     setContentLanguage(nextLanguage);
-    if (!hasEditedCode) setCode(problem.translations[nextLanguage].starterCode[language]);
+    const nextTranslation = problem.translations[nextLanguage];
+    setCodes((prev) => {
+      const updated = { ...prev };
+      for (const lang of ["cpp", "java", "python"] as const) {
+        const stored = typeof window !== "undefined" ? localStorage.getItem(`tryfinally_code_${problem.slug}_${lang}`) : null;
+        if (!stored) {
+          updated[lang] = nextTranslation.starterCode[lang];
+        }
+      }
+      return updated;
+    });
   }
 
   function updateCodeLanguage(nextLanguage: SupportedLanguage) {
     setLanguage(nextLanguage);
-    if (!hasEditedCode) setCode(translation.starterCode[nextLanguage]);
   }
 
-  const languageExtension = useMemo(() => {
-    switch (language) {
-      case "cpp":
-        return cpp();
-      case "java":
-        return java();
-      case "python":
-        return python();
-      default:
-        return cpp();
-    }
+  const languageExtensions = useMemo(() => {
+    return getLanguageExtensions(language);
   }, [language]);
 
   return (
@@ -209,18 +256,26 @@ export function ProblemDetail({ problem }: { problem: Problem }) {
           <div className="flex min-h-[350px] flex-1 flex-col overflow-hidden rounded-lg border border-border bg-[#0d1117] text-[#c9d1d9]">
             <div className="flex items-center justify-between border-b border-border/40 bg-[#090d13] px-4 py-2.5 text-[11px] text-muted-foreground/70">
               <span className="font-mono">Solution.{language === "cpp" ? "cpp" : language === "java" ? "java" : "py"}</span>
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{language} • UTF-8</span>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={handleResetCode}
+                  title="Mevcut dildeki kodu ilk haline sıfırla"
+                  className="flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                >
+                  <RotateCcw className="h-3 w-3" />
+                  <span>Kodu Sıfırla</span>
+                </button>
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{language} • UTF-8</span>
+              </div>
             </div>
             <div className="flex-1 overflow-auto">
               <CodeMirror
-                value={code}
+                value={codes[language]}
                 height="320px"
                 theme={oneDark}
-                extensions={[languageExtension]}
-                onChange={(value) => {
-                  setCode(value);
-                  setHasEditedCode(true);
-                }}
+                extensions={languageExtensions}
+                onChange={handleCodeChange}
                 basicSetup={{
                   lineNumbers: true,
                   highlightActiveLineGutter: true,
