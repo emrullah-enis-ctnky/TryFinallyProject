@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect, type ReactNode } from "react";
 import Link from "next/link";
 import { ArrowLeft, Lightbulb, Play, RotateCcw, Send, Terminal } from "lucide-react";
 import CodeMirror from "@uiw/react-codemirror";
-import { oneDark } from "@codemirror/theme-one-dark";
+import { tryFinallyEditorTheme } from "./editorTheme";
 import { getLanguageExtensions } from "./completions";
 import { DifficultyBadge, PROBLEM_CONTENT_LANGUAGES, TopicBadges } from "./ui";
 import type { Problem, ProblemContentLanguage, SupportedLanguage } from "./types";
@@ -253,9 +253,9 @@ export function ProblemDetail({ problem }: { problem: Problem }) {
             </div>
           </div>
 
-          <div className="flex min-h-[350px] flex-1 flex-col overflow-hidden rounded-lg border border-border bg-[#0d1117] text-[#c9d1d9]">
-            <div className="flex items-center justify-between border-b border-border/40 bg-[#090d13] px-4 py-2.5 text-[11px] text-muted-foreground/70">
-              <span className="font-mono">Solution.{language === "cpp" ? "cpp" : language === "java" ? "java" : "py"}</span>
+          <div className="flex min-h-[350px] flex-1 flex-col overflow-hidden rounded-lg border border-border bg-background text-foreground shadow-sm">
+            <div className="flex items-center justify-between border-b border-border bg-surface px-4 py-2.5 text-[11px] text-muted-foreground">
+              <span className="font-mono font-medium text-foreground">Solution.{language === "cpp" ? "cpp" : language === "java" ? "java" : "py"}</span>
               <div className="flex items-center gap-3">
                 <button
                   type="button"
@@ -269,11 +269,11 @@ export function ProblemDetail({ problem }: { problem: Problem }) {
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{language} • UTF-8</span>
               </div>
             </div>
-            <div className="flex-1 overflow-auto">
+            <div className="flex-1 overflow-auto bg-background">
               <CodeMirror
                 value={codes[language]}
                 height="320px"
-                theme={oneDark}
+                theme={tryFinallyEditorTheme}
                 extensions={languageExtensions}
                 onChange={handleCodeChange}
                 basicSetup={{
