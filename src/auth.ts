@@ -6,17 +6,22 @@ import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  secret: process.env.AUTH_SECRET || "development-secret-for-tryfinally-app-1234567890",
+  trustHost: true,
   providers: [
-    Google({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
-    }),
+    ...(process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET
+      ? [
+          Google({
+            clientId: process.env.AUTH_GOOGLE_ID,
+            clientSecret: process.env.AUTH_GOOGLE_SECRET,
+          }),
+        ]
+      : []),
     // Test girişi
     Credentials({
       name: "Test Account",
       credentials: {}, 
       async authorize() {
-        
         return {
           id: "test-123",
           name: "Ahmet Yılmaz",
