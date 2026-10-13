@@ -32,6 +32,7 @@ model User {
   
   // İlişkiler
   submissions   Submission[]
+  solvedProblems SolvedProblem[]
   threads       Thread[]
   comments      Comment[]
   achievements  UserAchievement[]
@@ -79,11 +80,23 @@ enum Difficulty {
   HARD
 }
 
-// Sunucunun döneceği sonuçlar için enum
+// Gönderimin durumu. PENDING ve RUNNING judge'ın kuyruğu, diğerleri sonuç (verdict).
 enum SubStatus {
-  SUCCESS
-  FAILED
-  TIME_LIMIT
+  PENDING          // sırada bekliyor
+  RUNNING          // judge şu an çalıştırıyor
+  ACCEPTED         // tüm testler geçti
+  WRONG_ANSWER     // yanlış sonuç
+  TIME_LIMIT       // süre aşıldı
+  MEMORY_LIMIT     // bellek aşıldı
+  RUNTIME_ERROR    // çalışırken hata (ör. dizi dışı erişim)
+  COMPILE_ERROR    // kod derlenemedi / sözdizimi hatası
+  INTERNAL_ERROR   // bizim taraftaki hata (Docker kapalı vb.)
+}
+
+// "Çalıştır" (sadece görünür testler, puan yok) ve "Gönder" (tüm testler)
+enum SubmissionKind {
+  RUN
+  SUBMIT
 }
 
 enum Language {
@@ -104,6 +117,7 @@ model Problem {
   
   testCases     TestCase[]   // Leetcode'daki soruların altında 2-3 tane olan örnek testler
   submissions   Submission[]
+  solvedBy      SolvedProblem[]
 
   @@map("Puzzle")
 }
@@ -126,8 +140,34 @@ model Submission {
   
   code        String    @db.Text
   language    Language
-  status      SubStatus
+  kind        SubmissionKind @default(SUBMIT)
+  status      SubStatus @default(PENDING)
+  passedCount Int       @default(0)
+  totalCount  Int       @default(0)
+  runtimeMs   Int?                        // geçen testlerdeki en uzun süre
+  result      Json?                       // judge'ın detaylı sonucu (JudgeResult tipi)
   createdAt   DateTime  @default(now())
+  judgedAt    DateTime?
+
+  solvedBy    SolvedProblem?
+
+  @@index([status, createdAt])                   // judge kuyruğu bu indeksle aranır
+  @@index([userId, problemId, createdAt])        // gönderim geçmişi
+  @@index([problemId, language, status])         // "%X'inden hızlı" hesabı
+}
+
+// Kullanıcının çözdüğü sorular. Her (kullanıcı, soru) çifti en fazla bir kez yazılabildiği için
+// puan sadece ilk ACCEPTED gönderimde verilir.
+model SolvedProblem {
+  userId       String
+  user         User       @relation(fields: [userId], references: [id])
+  problemId    String     @map("puzzleId")
+  problem      Problem    @relation(fields: [problemId], references: [id])
+  submissionId String     @unique
+  submission   Submission @relation(fields: [submissionId], references: [id])
+  solvedAt     DateTime   @default(now())
+
+  @@id([userId, problemId])
 }
 
 // *****************************
