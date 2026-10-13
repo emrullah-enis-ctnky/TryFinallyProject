@@ -12,5 +12,14 @@ export default async function ProblemDetailPage({ params }: ProblemDetailPagePro
 
   if (!problem) notFound();
 
-  return <ProblemDetail key={problem.slug} problem={problem} />;
+  // ProblemDetail bir istemci bileşeni: verdiğimiz her şey tarayıcıya gider.
+  // Gizli testlerin girdisini ve beklenen çıktısını göndermiyoruz; sadece sayıları kalıyor.
+  const safeProblem = {
+    ...problem,
+    testCases: problem.testCases.map((testCase) =>
+      testCase.isHidden ? { id: testCase.id, input: "", expectedOutput: "", isHidden: true } : testCase,
+    ),
+  };
+
+  return <ProblemDetail key={problem.slug} problem={safeProblem} />;
 }
