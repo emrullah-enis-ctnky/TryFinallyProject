@@ -22,6 +22,7 @@ Projeye rastgele veya keyfi kütüphane eklenemez. **Yeni bir kütüphane veya p
 | **Node.js** | `v26.8.0`+ | Uygulama çalışma zamanı ortamı |
 | **npm** | `v12.0.0`+ | Paket yöneticisi |
 | **Docker & Docker Compose** | En güncel | Yerel PostgreSQL veritabanı konteynerini çalıştırmak için |
+| **Docker imajları (judge)** | `python:3.12-slim`, `eclipse-temurin:21-jdk`, `gcc:14` | Kullanıcı kodunu izole konteynerde çalıştırmak için. `npm run judge:images` ile indirilir. |
 | **RTK (Rust Token Killer)** | En güncel | Shell komutlarını optimize eden CLI proxy'si (`rtk <komut>`) |
 
 ---
@@ -36,6 +37,7 @@ Bu paketler son kullanıcının deneyiminde ve uygulamanın canlı çalışma za
 | **`react`** | `^19.0.0` | Kullanıcı arayüzü bileşenleri çekirdek kütüphanesi. |
 | **`react-dom`** | `^19.0.0` | React bileşenlerini DOM'a bağlayan render motoru. |
 | **`@prisma/client`** | `^7.10.0` | PostgreSQL veritabanı sorguları, model tipleri ve veri katmanı erişim ORM istemcisi. |
+| **`@prisma/adapter-pg`** | `^7.10.0` | Prisma 7, PostgreSQL bağlantısı için sürücü adaptörü zorunlu tutuyor; `src/lib/db.ts` bunu kullanır. Adaptörsüz `new PrismaClient()` çalışmaz. |
 | **`next-auth`** | `^5.0.0-beta.32` | Güvenli kullanıcı kimlik doğrulama, Google OAuth ve oturum yönetimi (Auth.js v5). |
 | **`lucide-react`** | `^0.475.0` | Arayüz genelinde kullanılan modern ve tutarlı ikon seti. |
 | **`sonner`** | `^2.0.8` | Hızlı ve modern toast bildirimleri (başarı, hata ve uyarı mesajları için). |
@@ -65,6 +67,7 @@ Bu paketler yalnızca geliştirme, tip denetimi ve derleme aşamalarında (`devD
 | **`autoprefixer`** | `^10.4.20` | CSS kurallarına tarayıcı ön eklerini (vendor prefixes) otomatik ekleyen PostCSS eklentisi. |
 | **`eslint`** | `^9.20.1` | Kod kalitesi ve sözdizimi denetimi aracı. |
 | **`eslint-config-next`** | `^15.2.0` | Next.js'e özel ESLint kuralları ve optimizasyon denetleyicileri. |
+| **`tsx`** | `^4.20.0` | Judge worker'ını (`judge/worker.ts`) Next.js dışında ayrı bir Node süreci olarak çalıştırmak için. Prisma istemcisini ve TypeScript yol takma adlarını destekler. |
 
 ---
 
@@ -79,3 +82,5 @@ Bu paketler yalnızca geliştirme, tip denetimi ve derleme aşamalarında (`devD
 ## 📝 Güncelleme Kaydı
 
 * **2026-10-11:** `REQUIREMENTS.md` dosyası oluşturuldu; mevcut tüm üretim, geliştirme bağımlılıkları ve yeni paket ekleme kuralı dokümante edildi.
+* **2026-10-11:** Judge sistemi için `tsx` geliştirme bağımlılığı ve judge Docker imajları eklendi.
+* **2026-10-13:** Prisma 7 bağlantısı için `@prisma/adapter-pg` eklendi.
