@@ -3,6 +3,7 @@ import { Award, CheckCircle, Shield, Star, Trophy } from "lucide-react";
 import { redirect } from "next/navigation";
 import { currentDbUser } from "@/lib/session-user";
 import { getProfileStats } from "@/features/gamification/profile-service";
+import { getLevelInfo } from "@/features/gamification/levels";
 
 import { SignOutButton } from "@/components/profile/SignOutButton";
 
@@ -32,6 +33,9 @@ export default async function ProfilePage() {
   const email = user.email ?? "E-posta bilgisi bulunmuyor";
   const initials = getInitials(displayName);
 
+  // Toplam puana göre seviye ve ilerleme bilgilerini hesapla.
+  const levelInfo = getLevelInfo(stats.totalPoints);
+
   return (
     <div className="max-w-5xl mx-auto space-y-8">
       {/* Kullanıcı Başlık Kartı */}
@@ -44,7 +48,7 @@ export default async function ProfilePage() {
             <div className="flex items-center justify-center sm:justify-start gap-2">
               <h1 className="text-2xl font-black text-foreground">{displayName}</h1>
               <span className="text-xs px-2 py-0.5 rounded-full bg-accent/20 text-accent font-semibold">
-                Seviye {stats.level}
+                Seviye {levelInfo.level}
               </span>
             </div>
             <p className="text-sm text-muted-foreground mt-0.5">
@@ -101,7 +105,7 @@ export default async function ProfilePage() {
               <span>Seviye</span>
             </div>
             <span className="text-2xl font-extrabold text-foreground">
-              {stats.level}
+              {levelInfo.level}
             </span>
           </div>
 
@@ -115,6 +119,56 @@ export default async function ProfilePage() {
               {stats.badges.length}
             </span>
           </div>
+        </div>
+      </div>
+
+      {/* Seviye İlerlemesi */}
+      <div className="p-6 rounded-lg border border-border bg-surface text-surface-foreground shadow-sm space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <Star className="w-5 h-5 text-primary" />
+            <h2 className="text-lg font-bold text-foreground">
+              Seviye İlerlemesi
+            </h2>
+          </div>
+          <span className="text-sm font-semibold text-primary">
+            Seviye {levelInfo.level}
+          </span>
+        </div>
+
+        {/* İlerleme Bilgileri */}
+        <div className="flex items-center justify-between gap-3 text-xs text-muted-foreground">
+          <span>
+            Bu seviyede {levelInfo.currentLevelPoints} / 100 puan
+          </span>
+          <span>
+            %{levelInfo.progressPercent}
+          </span>
+        </div>
+
+        {/* İlerleme Çubuğu */}
+        <div
+          className="w-full h-3 rounded-full bg-secondary overflow-hidden"
+          role="progressbar"
+          aria-label="Seviye ilerlemesi"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={levelInfo.progressPercent}
+        >
+          <div
+            className="h-full rounded-full bg-primary transition-all duration-300"
+            style={{ width: `${levelInfo.progressPercent}%` }}
+          />
+        </div>
+
+        {/* Sonraki Seviye Bilgisi */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-muted-foreground">
+          <span>
+            Bir sonraki seviyeye {levelInfo.pointsRemaining} puan kaldı.
+          </span>
+          <span>
+            Sonraki seviye: {levelInfo.nextLevelPoints} toplam puan
+          </span>
         </div>
       </div>
 
