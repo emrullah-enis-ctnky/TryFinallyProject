@@ -1,16 +1,45 @@
+
 import Link from "next/link";
-import { Code2, MessageSquare, ArrowRight, Sparkles } from "lucide-react";
+import { redirect } from "next/navigation";
+import {
+  Code2,
+  MessageSquare,
+  ArrowRight,
+  Sparkles,
+  Award,
+  CheckCircle,
+  Star,
+  Trophy,
+} from "lucide-react";
+
 import { getProblems, ProblemCard } from "@/features/problems";
 import { getForumThreads, ForumThreadCard } from "@/features/forum";
-import { getUserStats, UserStatsCard } from "@/features/gamification";
+import { getProfileStats } from "@/features/gamification/profile-service";
+import { getLevelInfo } from "@/features/gamification/levels";
+import { currentDbUser } from "@/lib/session-user";
 import { AiExplanationCard } from "@/features/ai";
 
 export default async function HomePage() {
+  // Oturumdaki kullanıcının veritabanı kaydını getir.
+  const user = await currentDbUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  // Problemleri, forum başlıklarını ve gerçek kullanıcı istatistiklerini yükle.
   const [problems, threads, stats] = await Promise.all([
     getProblems(),
     getForumThreads(),
-    getUserStats(),
+    getProfileStats(user.id),
   ]);
+
+  if (!stats) {
+    throw new Error("Kullanıcı istatistikleri yüklenemedi.");
+  }
+
+  // Kullanıcının seviyesini toplam puanına göre hesapla.
+  const levelInfo = getLevelInfo(stats.totalPoints);
 
   return (
     <div className="space-y-12">
@@ -46,7 +75,66 @@ export default async function HomePage() {
 
       {/* İlerleme ve İstatistikler (Kullanıcının Sevdiği Gamification Bölümü) */}
       <section className="space-y-3">
-        <UserStatsCard stats={stats} />
+        <div className="p-6 rounded-lg border border-border bg-surface text-surface-foreground shadow-sm">
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <h3 className="text-base font-bold text-foreground">
+              Geliştirici İstatistikleri
+            </h3>
+            <Link
+              href="/user/profile"
+              className="text-xs text-primary hover:underline flex items-center gap-1"
+            >
+              <span>Profilim</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {/* Toplam Puan */}
+            <div className="p-4 rounded-lg bg-secondary/50 border border-border">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
+                <Award className="w-4 h-4 text-primary" />
+                <span>Toplam Puan</span>
+              </div>
+              <span className="text-2xl font-extrabold text-foreground">
+                {stats.totalPoints}
+              </span>
+            </div>
+
+            {/* Çözülen Soru */}
+            <div className="p-4 rounded-lg bg-secondary/50 border border-border">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
+                <CheckCircle className="w-4 h-4 text-accent" />
+                <span>Çözülen Soru</span>
+              </div>
+              <span className="text-2xl font-extrabold text-foreground">
+                {stats.solvedProblemsCount}
+              </span>
+            </div>
+
+            {/* Kullanıcı Seviyesi */}
+            <div className="p-4 rounded-lg bg-secondary/50 border border-border">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
+                <Star className="w-4 h-4 text-primary" />
+                <span>Seviye</span>
+              </div>
+              <span className="text-2xl font-extrabold text-foreground">
+                {levelInfo.level}
+              </span>
+            </div>
+
+            {/* Kazanılan Rozet */}
+            <div className="p-4 rounded-lg bg-secondary/50 border border-border">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
+                <Trophy className="w-4 h-4 text-accent" />
+                <span>Kazanılan Rozet</span>
+              </div>
+              <span className="text-2xl font-extrabold text-foreground">
+                {stats.badges.length}
+              </span>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Sorular ve Asistan Alanı */}
