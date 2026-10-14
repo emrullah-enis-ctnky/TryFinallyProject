@@ -1,9 +1,10 @@
 
-import { Award, CheckCircle, Shield, Star, Trophy } from "lucide-react";
+import { Award, CheckCircle, Shield, Star } from "lucide-react";
 import { redirect } from "next/navigation";
 import { currentDbUser } from "@/lib/session-user";
 import { getProfileStats } from "@/features/gamification/profile-service";
 import { getLevelInfo } from "@/features/gamification/levels";
+import { ProfileStatsCard } from "@/features/gamification/ProfileStatsCard";
 
 import { SignOutButton } from "@/components/profile/SignOutButton";
 
@@ -70,57 +71,7 @@ export default async function ProfilePage() {
       </div>
 
       {/* İstatistikler */}
-      <div className="p-6 rounded-lg border border-border bg-surface text-surface-foreground shadow-sm">
-        <h3 className="text-base font-bold text-foreground mb-4">
-          Geliştirici İstatistikleri
-        </h3>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {/* Toplam Puan */}
-          <div className="p-4 rounded-lg bg-secondary/50 border border-border">
-            <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
-              <Award className="w-4 h-4 text-primary" />
-              <span>Toplam Puan</span>
-            </div>
-            <span className="text-2xl font-extrabold text-foreground">
-              {stats.totalPoints}
-            </span>
-          </div>
-
-          {/* Çözülen Soru */}
-          <div className="p-4 rounded-lg bg-secondary/50 border border-border">
-            <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
-              <CheckCircle className="w-4 h-4 text-accent" />
-              <span>Çözülen Soru</span>
-            </div>
-            <span className="text-2xl font-extrabold text-foreground">
-              {stats.solvedProblemsCount}
-            </span>
-          </div>
-
-          {/* Kullanıcı Seviyesi */}
-          <div className="p-4 rounded-lg bg-secondary/50 border border-border">
-            <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
-              <Star className="w-4 h-4 text-primary" />
-              <span>Seviye</span>
-            </div>
-            <span className="text-2xl font-extrabold text-foreground">
-              {levelInfo.level}
-            </span>
-          </div>
-
-          {/* Kazanılan Rozet */}
-          <div className="p-4 rounded-lg bg-secondary/50 border border-border">
-            <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
-              <Trophy className="w-4 h-4 text-accent" />
-              <span>Kazanılan Rozet</span>
-            </div>
-            <span className="text-2xl font-extrabold text-foreground">
-              {stats.badges.length}
-            </span>
-          </div>
-        </div>
-      </div>
+      <ProfileStatsCard stats={stats} />
 
       {/* Seviye İlerlemesi */}
       <div className="p-6 rounded-lg border border-border bg-surface text-surface-foreground shadow-sm space-y-4">
