@@ -43,4 +43,5 @@ export interface ForumThread {
   votes: number;
   commentCount: number;
   isResolved: boolean;
+  comments?: ForumComment[]; // <-- Sadece bu satırı ekliyoruz
 }
