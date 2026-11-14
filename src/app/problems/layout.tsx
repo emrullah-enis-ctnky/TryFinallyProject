@@ -7,7 +7,6 @@ export default function UserLayout({
 }) {
   return (
     <div className="flex flex-col min-h-screen w-full">
-
       <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-surface/90 backdrop-blur-md">
         <Navbar />
       </header>

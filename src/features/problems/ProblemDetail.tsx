@@ -8,7 +8,12 @@ import { ProblemDescriptionPanel } from "./components/ProblemDescriptionPanel";
 import { CodeEditorPanel } from "./components/CodeEditorPanel";
 import { TestPanel } from "./components/TestPanel";
 import { SubmissionResultView } from "./components/SubmissionResultView";
-import type { Problem, ProblemContentLanguage, SupportedLanguage } from "./types";
+import { AiAssistantPanel, type AiProblemContext } from "@/features/ai";
+import type {
+  Problem,
+  ProblemContentLanguage,
+  SupportedLanguage,
+} from "./types";
 import type {
   CreateSubmissionRequest,
   CreateSubmissionResponse,
@@ -17,12 +22,15 @@ import type {
 } from "@/features/judge";
 
 const POLL_INTERVAL_MS = 1000;
-const MAX_POLL_ATTEMPTS = 60; // 60 saniye zaman aşımı koruması
+const MAX_POLL_ATTEMPTS = 60;
 
 export function ProblemDetail({ problem }: { problem: Problem }) {
-  const [contentLanguage, setContentLanguage] = useState<ProblemContentLanguage>("tr");
+  const [contentLanguage, setContentLanguage] =
+    useState<ProblemContentLanguage>("tr");
   const [language, setLanguage] = useState<SupportedLanguage>("cpp");
-  const [activeTestPanel, setActiveTestPanel] = useState<"testcase" | "result">("testcase");
+  const [activeTestPanel, setActiveTestPanel] = useState<"testcase" | "result">(
+    "testcase",
+  );
 
   // Judge state'leri
   const [activeKind, setActiveKind] = useState<SubmissionKind | null>(null);
@@ -45,7 +53,6 @@ export function ProblemDetail({ problem }: { problem: Problem }) {
     }
   }, []);
 
-  // Bileşen unmount olduğunda aktif polling'i temizle
   useEffect(() => {
     return () => clearPollTimer();
   }, [clearPollTimer]);
@@ -53,9 +60,15 @@ export function ProblemDetail({ problem }: { problem: Problem }) {
   useEffect(() => {
     if (typeof window === "undefined") return;
     try {
-      const storedCpp = localStorage.getItem(`tryfinally_code_${problem.slug}_cpp`);
-      const storedJava = localStorage.getItem(`tryfinally_code_${problem.slug}_java`);
-      const storedPython = localStorage.getItem(`tryfinally_code_${problem.slug}_python`);
+      const storedCpp = localStorage.getItem(
+        `tryfinally_code_${problem.slug}_cpp`,
+      );
+      const storedJava = localStorage.getItem(
+        `tryfinally_code_${problem.slug}_java`,
+      );
+      const storedPython = localStorage.getItem(
+        `tryfinally_code_${problem.slug}_python`,
+      );
 
       setCodes((prev) => ({
         cpp: storedCpp ?? prev.cpp,
@@ -70,7 +83,10 @@ export function ProblemDetail({ problem }: { problem: Problem }) {
   function handleCodeChange(newCode: string) {
     setCodes((prev) => ({ ...prev, [language]: newCode }));
     try {
-      localStorage.setItem(`tryfinally_code_${problem.slug}_${language}`, newCode);
+      localStorage.setItem(
+        `tryfinally_code_${problem.slug}_${language}`,
+        newCode,
+      );
     } catch {
       // localStorage hatası yoksayılır
     }
@@ -104,6 +120,17 @@ export function ProblemDetail({ problem }: { problem: Problem }) {
     });
   }
 
+  function getAiContext(): AiProblemContext {
+    return {
+      problemSlug: problem.slug,
+      problemTitle: translation.title,
+      problemDescription: translation.contentMarkdown,
+      userCode: codes[language],
+      language,
+      responseLanguage: contentLanguage,
+    };
+  }
+
   async function executeCode(kind: SubmissionKind) {
     if (activeKind !== null) return;
 
@@ -133,8 +160,13 @@ export function ProblemDetail({ problem }: { problem: Problem }) {
         const errMsg =
           typeof data === "string"
             ? data
-            : data?.error ?? data?.message ?? data?.detail ?? JSON.stringify(data);
-        setJudgeError(`(${res.status}) ${errMsg || "Gönderim oluşturulamadı."}`);
+            : (data?.error ??
+              data?.message ??
+              data?.detail ??
+              JSON.stringify(data));
+        setJudgeError(
+          `(${res.status}) ${errMsg || "Gönderim oluşturulamadı."}`,
+        );
         setActiveKind(null);
         return;
       }
@@ -151,7 +183,9 @@ export function ProblemDetail({ problem }: { problem: Problem }) {
           const pollData = await pollRes.json().catch(() => null);
 
           if (!pollRes.ok) {
-            setJudgeError(pollData?.error ?? pollData?.message ?? "Sonuç alınamadı.");
+            setJudgeError(
+              pollData?.error ?? pollData?.message ?? "Sonuç alınamadı.",
+            );
             setActiveKind(null);
             return;
           }
@@ -161,13 +195,14 @@ export function ProblemDetail({ problem }: { problem: Problem }) {
 
           if (view.status === "PENDING" || view.status === "RUNNING") {
             if (attempts >= MAX_POLL_ATTEMPTS) {
-              setJudgeError("Değerlendirme zaman aşımına uğradı. Lütfen daha sonra tekrar dene.");
+              setJudgeError(
+                "Değerlendirme zaman aşımına uğradı. Lütfen daha sonra tekrar dene.",
+              );
               setActiveKind(null);
               return;
             }
             pollTimerRef.current = setTimeout(poll, POLL_INTERVAL_MS);
           } else {
-            // Nihai verdict geldi
             setActiveKind(null);
           }
         } catch {
@@ -197,7 +232,11 @@ export function ProblemDetail({ problem }: { problem: Problem }) {
           <span className="text-xs text-muted-foreground">Soru dili</span>
           <select
             value={contentLanguage}
-            onChange={(event) => updateContentLanguage(event.target.value as ProblemContentLanguage)}
+            onChange={(event) =>
+              updateContentLanguage(
+                event.target.value as ProblemContentLanguage,
+              )
+            }
             className="rounded-md border border-border bg-surface px-2 py-1.5 text-xs text-foreground"
             aria-label="Problem dili"
           >
@@ -211,7 +250,11 @@ export function ProblemDetail({ problem }: { problem: Problem }) {
       </div>
 
       <div className="grid min-h-[580px] grid-cols-1 gap-6 lg:grid-cols-12">
-        <ProblemDescriptionPanel difficulty={problem.difficulty} translation={translation} />
+        <ProblemDescriptionPanel
+          difficulty={problem.difficulty}
+          translation={translation}
+          aiPanel={<AiAssistantPanel getContext={getAiContext} />}
+        />
 
         <section className="flex flex-col gap-4 lg:col-span-7">
           <CodeEditorPanel
@@ -236,6 +279,7 @@ export function ProblemDetail({ problem }: { problem: Problem }) {
                 submission={submission}
                 error={judgeError}
                 isPolling={activeKind !== null}
+                getAiContext={getAiContext}
               />
             }
           />

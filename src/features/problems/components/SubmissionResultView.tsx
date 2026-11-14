@@ -1,7 +1,16 @@
 "use client";
 
-import { CheckCircle2, XCircle, Clock, AlertTriangle, Loader2, Trophy, Zap } from "lucide-react";
+import {
+  CheckCircle2,
+  XCircle,
+  Clock,
+  AlertTriangle,
+  Loader2,
+  Trophy,
+  Zap,
+} from "lucide-react";
 import type { SubmissionView, Verdict } from "@/features/judge";
+import { AiErrorExplainButton, type AiProblemContext } from "@/features/ai";
 
 const VERDICT_META: Record<
   Verdict,
@@ -48,9 +57,15 @@ interface SubmissionResultViewProps {
   submission: SubmissionView | null;
   error: string | null;
   isPolling: boolean;
+  getAiContext: () => AiProblemContext;
 }
 
-export function SubmissionResultView({ submission, error, isPolling }: SubmissionResultViewProps) {
+export function SubmissionResultView({
+  submission,
+  error,
+  isPolling,
+  getAiContext,
+}: SubmissionResultViewProps) {
   if (error) {
     return (
       <div className="flex items-start gap-2.5 rounded-lg border border-rose-500/30 bg-rose-500/10 p-4 text-xs text-rose-400">
@@ -66,18 +81,24 @@ export function SubmissionResultView({ submission, error, isPolling }: Submissio
   if (!submission && !isPolling) {
     return (
       <div className="py-8 text-center text-xs text-muted-foreground">
-        Henüz bir çalıştırma yapılmadı. Kodunu test etmek için <strong>Çalıştır</strong> veya{" "}
-        <strong>Gönder</strong> butonunu kullan.
+        Henüz bir çalıştırma yapılmadı. Kodunu test etmek için{" "}
+        <strong>Çalıştır</strong> veya <strong>Gönder</strong> butonunu kullan.
       </div>
     );
   }
 
-  if (!submission || submission.status === "PENDING" || submission.status === "RUNNING") {
+  if (
+    !submission ||
+    submission.status === "PENDING" ||
+    submission.status === "RUNNING"
+  ) {
     return (
       <div className="flex flex-col items-center justify-center gap-2 py-8 text-xs text-muted-foreground">
         <Loader2 className="h-5 w-5 animate-spin text-primary" />
         <p className="font-medium text-foreground">
-          {submission?.status === "RUNNING" ? "Kodun testlerden geçiyor..." : "Kuyrukta bekleniyor..."}
+          {submission?.status === "RUNNING"
+            ? "Kodun testlerden geçiyor..."
+            : "Kuyrukta bekleniyor..."}
         </p>
       </div>
     );
@@ -87,10 +108,19 @@ export function SubmissionResultView({ submission, error, isPolling }: Submissio
   const result = submission.result;
   const failedTest = result?.failedTest;
 
+  const aiErrorMessage =
+    result?.compileOutput ||
+    failedTest?.error ||
+    (failedTest
+      ? `Durum: ${submission.status} | Girdi: ${failedTest.input ?? "-"} | Beklenen: ${failedTest.expectedOutput ?? "-"} | Çıktı: ${failedTest.actualOutput ?? "null"}`
+      : `Durum: ${submission.status} (${submission.passedCount}/${submission.totalCount} test geçti)`);
+
   return (
     <div className="space-y-4 text-xs">
       {/* Üst Durum Kartı */}
-      <div className={`flex flex-wrap items-center justify-between gap-3 rounded-lg border p-3.5 ${meta.bgClass}`}>
+      <div
+        className={`flex flex-wrap items-center justify-between gap-3 rounded-lg border p-3.5 ${meta.bgClass}`}
+      >
         <div className="flex items-center gap-2">
           {submission.status === "ACCEPTED" ? (
             <CheckCircle2 className={`h-5 w-5 ${meta.colorClass}`} />
@@ -98,7 +128,9 @@ export function SubmissionResultView({ submission, error, isPolling }: Submissio
             <XCircle className={`h-5 w-5 ${meta.colorClass}`} />
           )}
           <div>
-            <p className={`text-sm font-bold ${meta.colorClass}`}>{meta.label}</p>
+            <p className={`text-sm font-bold ${meta.colorClass}`}>
+              {meta.label}
+            </p>
             <p className="text-[11px] text-muted-foreground">
               {submission.passedCount} / {submission.totalCount} test geçti
             </p>
@@ -128,6 +160,15 @@ export function SubmissionResultView({ submission, error, isPolling }: Submissio
         </div>
       </div>
 
+      {/* Hata Açıklama Butonu & Kartı (Sistem hatası hariç başarısız durumlarda) */}
+      {submission.status !== "ACCEPTED" &&
+        submission.status !== "INTERNAL_ERROR" && (
+          <AiErrorExplainButton
+            getContext={getAiContext}
+            errorMessage={aiErrorMessage}
+          />
+        )}
+
       {/* Derleme Hatası */}
       {result?.compileOutput && (
         <div className="space-y-1.5">
@@ -137,15 +178,16 @@ export function SubmissionResultView({ submission, error, isPolling }: Submissio
           </pre>
         </div>
       )}
+
       {/* Sistem Hatası Teknik Detayı */}
-        {result?.internalMessage && (
+      {result?.internalMessage && (
         <div className="space-y-1.5">
-    <p className="font-semibold text-amber-400">Sistem Hatası Detayı</p>
-    <pre className="max-h-48 overflow-auto rounded-md border border-border bg-background p-3 font-mono text-[11px] text-amber-300">
-      {result.internalMessage}
-    </pre>
-  </div>
-)}
+          <p className="font-semibold text-amber-400">Sistem Hatası Detayı</p>
+          <pre className="max-h-48 overflow-auto rounded-md border border-border bg-background p-3 font-mono text-[11px] text-amber-300">
+            {result.internalMessage}
+          </pre>
+        </div>
+      )}
 
       {/* İlk Başarısız Test Detayı */}
       {failedTest && (
@@ -165,7 +207,9 @@ export function SubmissionResultView({ submission, error, isPolling }: Submissio
 
           {failedTest.input !== undefined && (
             <div>
-              <span className="text-[11px] text-muted-foreground">Girdi (Input):</span>
+              <span className="text-[11px] text-muted-foreground">
+                Girdi (Input):
+              </span>
               <pre className="mt-1 overflow-auto rounded bg-secondary p-2 font-mono text-[11px] text-foreground">
                 {failedTest.input}
               </pre>
@@ -174,7 +218,9 @@ export function SubmissionResultView({ submission, error, isPolling }: Submissio
 
           {failedTest.actualOutput !== undefined && (
             <div>
-              <span className="text-[11px] text-muted-foreground">Senin Çıktın (Output):</span>
+              <span className="text-[11px] text-muted-foreground">
+                Senin Çıktın (Output):
+              </span>
               <pre className="mt-1 overflow-auto rounded bg-secondary p-2 font-mono text-[11px] text-rose-300">
                 {failedTest.actualOutput ?? "null"}
               </pre>
@@ -183,7 +229,9 @@ export function SubmissionResultView({ submission, error, isPolling }: Submissio
 
           {failedTest.expectedOutput !== undefined && (
             <div>
-              <span className="text-[11px] text-muted-foreground">Beklenen Çıktı (Expected):</span>
+              <span className="text-[11px] text-muted-foreground">
+                Beklenen Çıktı (Expected):
+              </span>
               <pre className="mt-1 overflow-auto rounded bg-secondary p-2 font-mono text-[11px] text-emerald-400">
                 {failedTest.expectedOutput}
               </pre>
@@ -202,27 +250,35 @@ export function SubmissionResultView({ submission, error, isPolling }: Submissio
       )}
 
       {/* "Çalıştır" modunda tek tek test listesi */}
-      {submission.kind === "run" && result?.tests && result.tests.length > 0 && (
-        <div className="space-y-1.5">
-          <p className="font-semibold text-muted-foreground">Örnek Test Durumları</p>
-          <div className="flex flex-wrap gap-2">
-            {result.tests.map((test, idx) => (
-              <span
-                key={test.id}
-                className={`inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 font-mono text-[11px] ${
-                  test.passed
-                    ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
-                    : "border-rose-500/30 bg-rose-500/10 text-rose-400"
-                }`}
-              >
-                {test.passed ? <CheckCircle2 className="h-3 w-3" /> : <XCircle className="h-3 w-3" />}
-                Test {idx + 1}
-                {test.timeMs !== null ? ` (${test.timeMs}ms)` : ""}
-              </span>
-            ))}
+      {submission.kind === "run" &&
+        result?.tests &&
+        result.tests.length > 0 && (
+          <div className="space-y-1.5">
+            <p className="font-semibold text-muted-foreground">
+              Örnek Test Durumları
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {result.tests.map((test, idx) => (
+                <span
+                  key={test.id}
+                  className={`inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 font-mono text-[11px] ${
+                    test.passed
+                      ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
+                      : "border-rose-500/30 bg-rose-500/10 text-rose-400"
+                  }`}
+                >
+                  {test.passed ? (
+                    <CheckCircle2 className="h-3 w-3" />
+                  ) : (
+                    <XCircle className="h-3 w-3" />
+                  )}
+                  Test {idx + 1}
+                  {test.timeMs !== null ? ` (${test.timeMs}ms)` : ""}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
     </div>
   );
 }
