@@ -22,6 +22,9 @@ for (const file of [".env.local", ".env"]) {
   if (existsSync(file)) process.loadEnvFile(file);
 }
 let db: (typeof import("../src/lib/db.ts"))["default"];
+let updateGamificationProgress: (
+  typeof import("../src/features/gamification/progress-service.ts")
+)["updateGamificationProgress"];
 import { logger } from "../src/lib/logger.ts";
 import type { JudgeLanguage, JudgeResult, SubmissionKind } from "../src/features/judge/types.ts";
 import { judge, loadJudgeProblem, sandboxModeFromEnv, testsFor } from "./engine/index.ts";
@@ -100,10 +103,14 @@ async function processSubmission(submissionId: string): Promise<void> {
       });
       if (count === 1) {
         pointsAwarded = problem.points;
+
         await tx.user.update({
           where: { id: submission.userId },
           data: { totalPoints: { increment: problem.points } },
         });
+
+        // İlk başarılı çözümde seviye ve rozetleri güncelle.
+        await updateGamificationProgress(tx, submission.userId);
       }
     }
   });
@@ -150,6 +157,9 @@ async function workerLoop(index: number): Promise<void> {
 
 async function main(): Promise<void> {
   db = (await import("../src/lib/db.ts")).default;
+  updateGamificationProgress = (
+    await import("../src/features/gamification/progress-service.ts")
+  ).updateGamificationProgress;
   const mode = sandboxModeFromEnv();
   logger.info("Judge", `Worker başlıyor (mod: ${mode}, aynı anda ${CONCURRENCY} gönderim)`);
   if (mode === "local") {

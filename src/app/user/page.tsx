@@ -1,16 +1,38 @@
+
 import Link from "next/link";
-import { Code2, MessageSquare, ArrowRight, Sparkles } from "lucide-react";
+import { redirect } from "next/navigation";
+import {
+  Code2,
+  MessageSquare,
+  ArrowRight,
+  Sparkles,
+} from "lucide-react";
+
 import { getProblems, ProblemCard } from "@/features/problems";
 import { getForumThreads, ForumThreadCard } from "@/features/forum";
-import { getUserStats, UserStatsCard } from "@/features/gamification";
+import { getProfileStats } from "@/features/gamification/profile-service";
+import { ProfileStatsCard } from "@/features/gamification/ProfileStatsCard";
+import { currentDbUser } from "@/lib/session-user";
 import { AiExplanationCard } from "@/features/ai";
 
 export default async function HomePage() {
+  // Oturumdaki kullanıcının veritabanı kaydını getir.
+  const user = await currentDbUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  // Problemleri, forum başlıklarını ve gerçek kullanıcı istatistiklerini yükle.
   const [problems, threads, stats] = await Promise.all([
     getProblems(),
     getForumThreads(),
-    getUserStats(),
+    getProfileStats(user.id),
   ]);
+
+  if (!stats) {
+    throw new Error("Kullanıcı istatistikleri yüklenemedi.");
+  }
 
   return (
     <div className="space-y-12">
@@ -46,7 +68,7 @@ export default async function HomePage() {
 
       {/* İlerleme ve İstatistikler (Kullanıcının Sevdiği Gamification Bölümü) */}
       <section className="space-y-3">
-        <UserStatsCard stats={stats} />
+        <ProfileStatsCard stats={stats} showProfileLink />
       </section>
 
       {/* Sorular ve Asistan Alanı */}
