@@ -10,7 +10,7 @@ Yazılıma yeni başlayanların en sık karşılaştığı zorluklar; karmaşık
 
 **TryFinally**, bu engelleri tamamen ortadan kaldırmak için tasarlanmıştır:
 * **Sıfır Kurulum:** Tarayıcıyı açtığınız anda kod yazabileceğiniz Monaco Editor hazırdır.
-* **Sunucuya Sıfır Yükle Güvenli Kod Koşturma:** Yazdığınız JavaScript ve Python kodları sunucuda değil; tarayıcınızda izole bir şekilde (Web Worker ve Pyodide ile) çalışır. Bu sayede sunucu maliyetleri sıfıra iner ve kodunuz anında çalışır.
+* **Problem Editörü:** C++, Java ve Python dillerinde `Solution` sınıfı ve hazır metot iskeleti sunar. Kod koşturucu entegrasyonu yol haritasında yer alır.
 * **Google Gemini API ile Şefkatli Hata Açıklamaları:** Kodunuzda bir hata olduğunda sistem sizi azarlamaz; Google Gemini API hatayı yeni başlayan birinin anlayabileceği sade bir Türkçe ile açıklar ve doğrudan cevabı vermeden yönlendirici ipuçları (hints) sunar.
 * **Bütünleşik Topluluk Forumu:** Soruları çözerken takıldığınız her an, ilgili sorunun hemen altından toplulukla fikir alışverişi yapabilirsiniz.
 * **Sunucu Odaklı Güvenli Veri:** Tüm çözümleriniz, profiliniz, puanlarınız ve forum içerikleriniz sunucudaki merkezi veritabanında güvenle saklanır.
@@ -35,7 +35,7 @@ src/features/<ozellik-adi>/
 └── index.ts      # Modülün dışa açılan genel kapısı (Public Contract)
 ```
 
-> ⚠️ **Katı Modül Kuralı:** Bir modül başka bir modülün iç dosyalarına (`features/puzzles/service.ts`) doğrudan erişemez. İletişim kesinlikle ilgili modülün `index.ts` dosyası üzerinden yapılır (`import { getPuzzle } from '@/features/puzzles'`).
+> ⚠️ **Katı Modül Kuralı:** Bir modül başka bir modülün iç dosyalarına (`features/problems/service.ts`) doğrudan erişemez. İletişim ilgili modülün `index.ts` dosyası üzerinden yapılır (`import { getProblems } from '@/features/problems'`).
 
 ### 3. Merkezi ve Kolayca Değiştirilebilir Taslak Tema Sistemi
 Arayüzde rastgele renk kodları (`#123456`, `bg-blue-600`) kullanmak kesinlikle yasaktır. Tüm tasarım, semantik tasarım token'larına bağlanmıştır:
@@ -53,6 +53,11 @@ Arayüzde rastgele renk kodları (`#123456`, `bg-blue-600`) kullanmak kesinlikle
 
 🎨 **Tema Nasıl Değişir?** İleride nihai renk paleti belirlendiğinde tek bir konfigürasyon dosyasındaki (`src/lib/theme/`) renk tanımları güncellenir ve A'dan Z'ye tüm platform anında yeni temaya kusursuz bir şekilde bürünür.
 
+### 4. Bağımlılık Yönetimi ve REQUIREMENTS Kuralı
+Projeye rastgele paket eklenemez. **Yeni bir kütüphane veya paket kullanılacağı zaman:**
+* Mutlaka önce veya eklendiği anda [`REQUIREMENTS.md`](REQUIREMENTS.md) dosyasına paketin adı, sürümü, eklenme gerekçesi ve kullanım alanı kaydedilmelidir.
+* Gemini API haricinde hiçbir 3. parti/ücretli harici API paketi projeye dahil edilemez.
+
 ---
 
 ## 📁 Dizin Yapısı
@@ -60,6 +65,7 @@ Arayüzde rastgele renk kodları (`#123456`, `bg-blue-600`) kullanmak kesinlikle
 ```text
 TryFinallyProject/
 ├── .env.example                # Çevre değişkenleri şablonu ve detaylı açıklamaları
+├── REQUIREMENTS.md             # Bağımlılıklar, kütüphaneler ve yeni paket ekleme kuralları
 ├── memory-bank/                # Projenin hafıza bankası (Mimari, kararlar ve ilerleme)
 │   ├── projectbrief.md         # Proje vizyonu, kapsam ve değişmez ilkeler
 │   ├── productContext.md       # Neden var olduğu, çözülen problemler ve UX hedefleri
@@ -68,18 +74,19 @@ TryFinallyProject/
 │   ├── techContext.md          # Teknoloji stack'i, bağımlılıklar ve teknik kısıtlar
 │   └── progress.md             # Tamamlanan ve kalan fazların ilerleme tablosu
 ├── base_plan.md                # 8 aşamalı detaylı geliştirme yol haritası
+├── problems/                   # Her problem için TR/EN/DE Markdown ve testcases.json
 ├── src/
 │   ├── app/                    # Next.js App Router sayfa yönlendirmeleri
-│   │   ├── (forum)/            # Topluluk forumu sayfaları
-│   │   ├── (puzzles)/          # Algoritma kodlama ve pratik sayfaları
-│   │   ├── (learn)/            # Öğrenme müfredatı ve konu anlatımları
-│   │   ├── (profile)/          # Kullanıcı profili ve başarım sayfaları
+│   │   ├── problems/           # Problem içerik ve detay sayfaları
+│   │   ├── forum/               # Topluluk forumu sayfaları
+│   │   ├── learn/               # Öğrenme müfredatı ve konu anlatımları
+│   │   ├── user/                # Kullanıcı paneli ve profil sayfaları
 │   │   ├── layout.tsx          # Kök sayfa düzeni (Navbar, Tema, Shell)
 │   │   └── page.tsx            # Ana karşılama sayfası
 │   ├── features/               # Özellik bazlı Clean Architecture modülleri
 │   │   ├── forum/              # Forum tartışmaları ve yorumlama
-│   │   ├── puzzles/            # Algoritma soruları ve test senaryoları
-│   │   ├── runner/             # Web Worker ve Pyodide kod koşturucu motoru
+│   │   ├── problems/           # Problem içeriklerini okuyan servis ve UI
+│   │   ├── runner/             # C++, Java ve Python kod koşturucu sözleşmesi
 │   │   ├── learn/              # Öğrenme yol haritası içerikleri
 │   │   ├── gamification/       # Skor, streak ve rozet hesaplamaları
 │   │   └── ai/                 # Google Gemini API akıllı hata ve ipucu servisi
@@ -95,6 +102,8 @@ TryFinallyProject/
 ---
 
 ## ⚙️ Kurulum ve Geliştirme Rehberi
+
+Yeni problem eklemek için `problems/<slug>/` altında `tr.md`, `en.md`, `de.md` ve `testcases.json` dosyalarını oluşturun. Liste ve detay sayfaları bu içerikleri `src/features/problems` servisinden yükler.
 
 ### Gereksinimler
 * **Node.js:** `v26.8.0` veya üzeri
@@ -171,8 +180,8 @@ Takım kararları doğrultusunda, ekibin arayüzü erkenden görebilmesi için g
   * Kodlama paneli, forum, öğrenme yol haritası ve profil taslak ekranlarının mock verilerle görselleştirilmesi.
 * [ ] **Faz 2: Sunucu Veri Katmanı ve Çekirdek Servisler (Backend & Database)**
   * Sunucu veritabanı şeması, Server Actions/API Routes ve 10 başlangıç sorusu tohum verileri.
-* [ ] **Faz 3: Tarayıcı İçi İzole Kod Koşturucu (Web Worker & Pyodide)**
-  * JavaScript ve Python için tarayıcıda izole, zaman aşımı korumalı kod koşturucu ve test motoru.
+* [ ] **Faz 3: C++, Java ve Python Kod Koşturucu**
+  * C++, Java ve Python için zaman aşımı korumalı kod koşturucu ve test motoru.
 * [ ] **Faz 4: Google Gemini API ile Akıllı Asistan Servisi (`features/ai`)**
   * Yeni başlayanlara Türkçe kod hata açıklamaları ve yönlendirici ipuçları sunan servis.
 * [ ] **Faz 5: Arayüz ve Sunucu Entegrasyonu (Full Dynamic UI)**

@@ -15,7 +15,7 @@ export interface RoadmapTopic {
   durationMinutes: number;
   isCompleted?: boolean;
   contentMarkdown?: string;
-  relatedPuzzleIds?: string[];
+  relatedProblemIds?: string[];
 }
 
 export interface RoadmapModule {

@@ -2,8 +2,7 @@
  * ==============================================================================
  * TryFinally — Kod Koşturucu Servisi (Runner Service)
  * ==============================================================================
- * Tarayıcı üzerinde JavaScript ve Python kodlarını ana thread'i bloke etmeden
- * güvenle çalıştırır.
+ * C++, Java ve Python kodlarının çalıştırılması için servis sözleşmesi.
  * ==============================================================================
  */
 
@@ -12,7 +11,7 @@ import type { ExecutionOptions, ExecutionResult } from "./types";
 
 /**
  * Verilen kodu seçilen dilde izole olarak çalıştırır.
- * (Faz 3'te tam Web Worker ve Pyodide motoru ile entegre edilecektir)
+ * (Gerçek dil çalışma motoru henüz bağlanmadı.)
  */
 export async function executeCode(options: ExecutionOptions): Promise<ExecutionResult> {
   const { language, code, timeoutMs = 3000 } = options;

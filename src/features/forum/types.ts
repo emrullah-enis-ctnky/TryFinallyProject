@@ -38,7 +38,11 @@ export interface ForumThread {
   authorId: string;
   authorName: string;
   authorAvatar?: string;
+<<<<<<< HEAD
   puzzleId?: string;
+=======
+  problemId?: string; // İlgili problem varsa bağlantısı
+>>>>>>> origin/main
   createdAt: string;
   updatedAt: string;
   votes: number;

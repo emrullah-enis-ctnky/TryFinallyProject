@@ -1,0 +1,8 @@
+{
+  "cases": [
+    { "id": "tc-01", "input": ["kayak"], "expectedOutput": true, "isHidden": false },
+    { "id": "tc-02", "input": ["merhaba"], "expectedOutput": false, "isHidden": false },
+    { "id": "tc-03", "input": ["a"], "expectedOutput": true, "isHidden": false },
+    { "id": "tc-04", "input": ["abba"], "expectedOutput": true, "isHidden": true }
+  ]
+}

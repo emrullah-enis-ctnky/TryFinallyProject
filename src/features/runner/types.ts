@@ -2,12 +2,11 @@
  * ==============================================================================
  * TryFinally — Kod Koşturucu Tip Tanımları (Runner Types)
  * ==============================================================================
- * Tarayıcı içi çalışan izole JavaScript (Web Worker) ve Python (Pyodide)
- * motorlarının girdi ve çıktı tipleri.
+ * C++, Java ve Python kod koşturucusunun girdi ve çıktı tipleri.
  * ==============================================================================
  */
 
-export type RunnerLanguage = "javascript" | "python";
+export type RunnerLanguage = "cpp" | "java" | "python";
 
 export interface ExecutionOptions {
   language: RunnerLanguage;

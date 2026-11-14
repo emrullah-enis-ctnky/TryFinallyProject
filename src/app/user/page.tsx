@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { Code2, MessageSquare, ArrowRight, Sparkles } from "lucide-react";
-import { getPuzzles, PuzzleCard } from "@/features/puzzles";
+import { getProblems, ProblemCard } from "@/features/problems";
 import { getForumThreads, ForumThreadCard } from "@/features/forum";
 import { getUserStats, UserStatsCard } from "@/features/gamification";
 import { AiExplanationCard } from "@/features/ai";
 
 export default async function HomePage() {
-  const [puzzles, threads, stats] = await Promise.all([
-    getPuzzles(),
+  const [problems, threads, stats] = await Promise.all([
+    getProblems(),
     getForumThreads(),
     getUserStats(),
   ]);
@@ -27,7 +27,7 @@ export default async function HomePage() {
         {/* Butonlar */}
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <Link
-            href="/puzzles"
+            href="/problems"
             className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-95 transition-opacity cursor-pointer shadow-sm"
           >
             <Code2 className="w-4 h-4" />
@@ -58,15 +58,15 @@ export default async function HomePage() {
               <Code2 className="w-4 h-4 text-primary" />
               <span>Başlangıç Pratikleri</span>
             </h2>
-            <Link href="/puzzles" className="text-xs text-primary hover:underline flex items-center gap-1">
+            <Link href="/problems" className="text-xs text-primary hover:underline flex items-center gap-1">
               <span>Tümünü Gör</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
           <div className="space-y-3">
-            {puzzles.map((puzzle) => (
-              <PuzzleCard key={puzzle.id} puzzle={puzzle} />
+            {problems.map((problem) => (
+              <ProblemCard key={problem.id} problem={problem} />
             ))}
           </div>
         </div>

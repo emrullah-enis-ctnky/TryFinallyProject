@@ -1,7 +1,9 @@
+import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '@prisma/client'
 
+// Prisma 7 veritabanına bağlanmak için bir sürücü adaptörü istiyor (adaptörsüz new PrismaClient() hata verir).
 const prismaClientSingleton = () => {
-  return new PrismaClient()
+  return new PrismaClient({ adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }) })
 }
 
 declare global {

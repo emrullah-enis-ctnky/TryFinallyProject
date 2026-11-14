@@ -21,7 +21,7 @@ export default function LoginPage() {
             <Code2 className="w-6 h-6" />
           </div>
           <h1 className="text-2xl font-bold text-surface-foreground tracking-tight">
-            Try<span className="text-primary">Finally</span>'e Hoş Geldin
+            Try<span className="text-primary">Finally</span>&apos;e Hoş Geldin
           </h1>
           <p className="text-sm text-muted-foreground">
             Topluluğa katılmak ve ilerlemeni kaydetmek için giriş yap.

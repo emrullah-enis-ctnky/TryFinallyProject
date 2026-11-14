@@ -37,7 +37,7 @@ export const UserStatsCard: React.FC<UserStatsCardProps> = ({ stats }) => {
             <CheckCircle className="w-4 h-4 text-accent" />
             <span>Çözülen Soru</span>
           </div>
-          <span className="text-2xl font-extrabold text-foreground">{stats.solvedPuzzlesCount}</span>
+          <span className="text-2xl font-extrabold text-foreground">{stats.solvedProblemsCount}</span>
         </div>
 
         {/* Güncel Streak */}

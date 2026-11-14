@@ -12,7 +12,7 @@ import type { UserStats } from "./types";
 const MOCK_USER_STATS: UserStats = {
   userId: "user-current",
   totalPoints: 120,
-  solvedPuzzlesCount: 12,
+  solvedProblemsCount: 12,
   currentStreakDays: 4,
   longestStreakDays: 7,
   forumReputation: 35,
