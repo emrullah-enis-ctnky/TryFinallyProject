@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { ArrowLeft, MessageSquare, CheckCircle2, User, AlertCircle, Send } from "lucide-react";
+import { ArrowLeft, CheckCircle2, User, AlertCircle, Send } from "lucide-react";
 import { getThreadById } from "@/features/forum/service";
 import { addCommentAction } from "@/features/forum/actions";
-import { UpvoteButton } from "@/features/forum/ui";
+import { UpvoteButton, ForumCommentsSection } from "@/features/forum/ui";
 
 export const dynamic = "force-dynamic";
 
@@ -37,11 +37,10 @@ export default async function ThreadDetailPage({ params }: ThreadDetailPageProps
     );
   }
 
-  const comments = (thread as any).comments || [];
+  const comments = thread.comments || [];
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      {/* Geri Dön Butonu */}
       <Link
         href="/forum"
         className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors"
@@ -69,9 +68,7 @@ export default async function ThreadDetailPage({ params }: ThreadDetailPageProps
           </span>
         </div>
 
-        <h1 className="text-2xl font-black text-foreground">
-          {thread.title}
-        </h1>
+        <h1 className="text-2xl font-black text-foreground">{thread.title}</h1>
 
         <div className="flex items-center gap-3 text-xs text-muted-foreground border-b border-border pb-4">
           <div className="flex items-center gap-1.5 font-medium text-foreground">
@@ -86,7 +83,6 @@ export default async function ThreadDetailPage({ params }: ThreadDetailPageProps
           {thread.content}
         </div>
 
-        {/* Etiketler */}
         {thread.tags && thread.tags.length > 0 && (
           <div className="flex flex-wrap gap-1.5 pt-2">
             {thread.tags.map((tag) => (
@@ -100,71 +96,43 @@ export default async function ThreadDetailPage({ params }: ThreadDetailPageProps
           </div>
         )}
 
-        {/* Oylama ve Aksiyon */}
         <div className="flex items-center gap-3 pt-4 border-t border-border">
           <UpvoteButton threadId={thread.id} initialVotes={thread.votes} showLabel />
         </div>
       </div>
 
-      {/* Yanıtlar Bölümü */}
-      <div className="space-y-4">
-        <h2 className="text-base font-bold text-foreground flex items-center gap-2">
-          <MessageSquare className="w-4 h-4 text-primary" />
-          <span>Topluluk Yanıtları ({comments.length})</span>
-        </h2>
+      {/* Etkileşimli Yorumlar ve Alt Yanıtlar Bölümü */}
+      <ForumCommentsSection threadId={thread.id} comments={comments} />
 
-        {/* Yanıt Listesi */}
-        {comments.length === 0 ? (
-          <div className="p-6 rounded-lg border border-border bg-surface/50 text-center text-xs text-muted-foreground">
-            Henüz yanıt yazılmamış. İlk yanıtı sen ver!
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {comments.map((comment: any) => (
-              <div
-                key={comment.id}
-                className="p-4 rounded-lg border border-border bg-surface space-y-2 text-sm"
-              >
-                <div className="flex items-center justify-between text-xs text-muted-foreground">
-                  <span className="font-semibold text-foreground">{comment.authorName}</span>
-                  <span>{new Date(comment.createdAt).toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })}</span>
-                </div>
-                <p className="text-foreground/90 whitespace-pre-wrap">{comment.content}</p>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Doğrudan Server Action ile çalışan Yanıt Formu */}
-        <form
-          action={async (formData: FormData) => {
-            "use server";
-            const content = formData.get("content")?.toString();
-            if (content?.trim()) {
-              await addCommentAction(thread.id, content.trim());
-            }
-          }}
-          className="p-4 rounded-lg border border-border bg-surface space-y-3"
-        >
-          <h3 className="text-xs font-bold text-foreground">Sen de Yanıtla</h3>
-          <textarea
-            name="content"
-            placeholder="Düşüncelerini ve yardımını buraya yaz..."
-            rows={3}
-            required
-            className="w-full p-3 rounded-md bg-zinc-900 border border-zinc-800 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:border-primary text-sm resize-none"
-          />
-          <div className="flex justify-end">
-            <button
-              type="submit"
-              className="flex items-center gap-1.5 px-4 py-2 rounded-md bg-primary text-primary-foreground text-xs font-semibold cursor-pointer hover:opacity-95"
-            >
-              <Send className="w-3.5 h-3.5" />
-              <span>Yanıtı Gönder</span>
-            </button>
-          </div>
-        </form>
-      </div>
+      {/* Ana Konuya Yeni Yanıt Formu */}
+      <form
+        action={async (formData: FormData) => {
+          "use server";
+          const content = formData.get("content")?.toString();
+          if (content?.trim()) {
+            await addCommentAction(thread.id, content.trim());
+          }
+        }}
+        className="p-4 rounded-lg border border-border bg-surface space-y-3"
+      >
+        <h3 className="text-xs font-bold text-foreground">Sen de Yanıtla</h3>
+        <textarea
+          name="content"
+          placeholder="Düşüncelerini ve yardımını buraya yaz..."
+          rows={3}
+          required
+          className="w-full p-3 rounded-md bg-zinc-900 border border-zinc-800 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:border-primary text-sm resize-none"
+        />
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-md bg-primary text-primary-foreground text-xs font-semibold cursor-pointer hover:opacity-95"
+          >
+            <Send className="w-3.5 h-3.5" />
+            <span>Yanıtı Gönder</span>
+          </button>
+        </div>
+      </form>
     </div>
   );
 }
