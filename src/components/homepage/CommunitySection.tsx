@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import { ArrowRight, BrainCircuit, MessageSquare } from "lucide-react";
 import { ForumThreadCard } from "@/features/forum";
@@ -10,9 +9,7 @@ type CommunitySectionProps = {
   >;
 };
 
-export default function CommunitySection({
-  threads,
-}: CommunitySectionProps) {
+export default function CommunitySection({ threads }: CommunitySectionProps) {
   return (
     <section
       id="community"
@@ -58,14 +55,14 @@ export default function CommunitySection({
           </h2>
 
           <p className="text-lg text-muted-foreground">
-            Takıldığın algoritmalarda diğer öğrencilerin nasıl yaklaştığını
-            gör, forumda tartış ve yapay zeka desteğiyle ipuçları al.
-            Projeye başlamak için daha ne bekliyorsun?
+            Takıldığın algoritmalarda diğer öğrencilerin nasıl yaklaştığını gör,
+            forumda tartış ve yapay zeka desteğiyle ipuçları al. Projeye
+            başlamak için daha ne bekliyorsun?
           </p>
 
           <div className="pt-6">
             <Link
-              href="/register"
+              href="/login"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-xl hover:opacity-90 transition-transform hover:scale-105 shadow-xl shadow-primary/30"
             >
               Kariyerine İlk Adımı At
