@@ -25,6 +25,7 @@ export interface ForumComment {
   createdAt: string;
   votes: number;
   isAcceptedSolution?: boolean;
+  replies?: ForumComment[];
 }
 
 export interface ForumThread {
@@ -37,10 +38,15 @@ export interface ForumThread {
   authorId: string;
   authorName: string;
   authorAvatar?: string;
+<<<<<<< HEAD
+  puzzleId?: string;
+=======
   problemId?: string; // İlgili problem varsa bağlantısı
+>>>>>>> origin/main
   createdAt: string;
   updatedAt: string;
   votes: number;
   commentCount: number;
   isResolved: boolean;
+  comments?: ForumComment[];
 }
