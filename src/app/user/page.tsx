@@ -1,12 +1,6 @@
-
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import {
-  Code2,
-  MessageSquare,
-  ArrowRight,
-  Sparkles,
-} from "lucide-react";
+import { Code2, MessageSquare, ArrowRight, Sparkles } from "lucide-react";
 
 import { getProblems, ProblemCard } from "@/features/problems";
 import { getForumThreads, ForumThreadCard } from "@/features/forum";
@@ -80,7 +74,10 @@ export default async function HomePage() {
               <Code2 className="w-4 h-4 text-primary" />
               <span>Başlangıç Pratikleri</span>
             </h2>
-            <Link href="/problems" className="text-xs text-primary hover:underline flex items-center gap-1">
+            <Link
+              href="/problems"
+              className="text-xs text-primary hover:underline flex items-center gap-1"
+            >
               <span>Tümünü Gör</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
@@ -97,13 +94,15 @@ export default async function HomePage() {
         <div className="space-y-4">
           <h2 className="text-base font-bold text-foreground flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-accent" />
-            <span>Yardımcı Rehber</span>
+            <span>Yardımcı Rehber (Geliştiriliyor)</span>
           </h2>
           <AiExplanationCard
             explanation={{
-              simpleExplanation: "Kodundaki küçük bir parantez veya noktalı virgül eksikliği bile bilgisayarın kafasını karıştırabilir.",
+              simpleExplanation:
+                "Kodundaki küçük bir parantez veya noktalı virgül eksikliği bile bilgisayarın kafasını karıştırabilir.",
               suggestedConcept: "Kod Satırlarını Sırayla Takip Etmek",
-              encouragingMessage: "Hata yapmak öğrenmenin en doğal parçasıdır. Sakince tekrar dene!",
+              encouragingMessage:
+                "Hata yapmak öğrenmenin en doğal parçasıdır. Sakince tekrar dene!",
             }}
           />
         </div>
@@ -116,7 +115,10 @@ export default async function HomePage() {
             <MessageSquare className="w-4 h-4 text-accent" />
             <span>Topluluktan Son Sorular</span>
           </h2>
-          <Link href="/forum" className="text-xs text-primary hover:underline flex items-center gap-1">
+          <Link
+            href="/forum"
+            className="text-xs text-primary hover:underline flex items-center gap-1"
+          >
             <span>Foruma Git</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
