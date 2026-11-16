@@ -26,6 +26,10 @@ export async function Navbar() {
           Problemler
         </NavLink>
         
+        <NavLink href="/leaderboard">
+          Sıralama
+        </NavLink>
+
         <NavLink href="/forum">
           Forum
         </NavLink>
