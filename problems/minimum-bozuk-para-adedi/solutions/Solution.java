@@ -1,0 +1,1 @@
+class Solution { public int minimumCoins(int[] coins, int amount) { int[] d=new int[amount+1];java.util.Arrays.fill(d,amount+1);d[0]=0;for(int a=1;a<=amount;a++)for(int c:coins)if(c<=a)d[a]=Math.min(d[a],d[a-c]+1);return d[amount]>amount?-1:d[amount]; } }

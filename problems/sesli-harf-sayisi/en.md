@@ -1,6 +1,6 @@
 ---
 slug: sesli-harf-sayisi
-title: Count the Vowels
+title: Count Vowels
 difficulty: kolay
 topics: [Strings]
 points: 10
@@ -8,49 +8,41 @@ points: 10
 
 ## Problem
 
-Given a text made of English letters, write a `countVowels` method that returns the number of vowels (`a`, `e`, `i`, `o`, `u`) in it. Uppercase and lowercase letters count the same.
+Count the vowels in ASCII archive text. `countVowels` must count a, e, i, o, and u in both lowercase and uppercase.
 
 ## Examples
 
-- `countVowels("hello world")` → `3`
-- `countVowels("Programming")` → `3`
+- `countVowels("Try again")` → `3`
+- `countVowels("rhythm")` → `0`
 
 ## Constraints
 
-- The text contains only English letters, spaces and punctuation.
-- The text may be empty.
-- `y` is not a vowel.
+- 0 <= text.length <= 100000; text contains ASCII characters.
 
 ## Hint
 
-Convert each character to lowercase and check whether it is in `"aeiou"`.
+Check the five vowels and their uppercase forms.
 
 ## Starter Code
 
 ```cpp
+#include <algorithm>
 #include <string>
-
+#include <vector>
 class Solution {
 public:
-  int countVowels(std::string text) {
-    // Write your solution here
-    return 0;
-  }
+  int countVowels(std::string text) { return 0; }
 };
 ```
 
 ```java
 class Solution {
-  public int countVowels(String text) {
-    // Write your solution here
-    return 0;
-  }
+  public int countVowels(String text) { return 0; }
 }
 ```
 
 ```python
 class Solution:
     def countVowels(self, text):
-        # Write your solution here
         return 0
 ```

@@ -1,0 +1,1 @@
+class Solution { public int countKDifferencePairs(int[] nums, int k) { java.util.HashMap<Integer,Integer> frequency=new java.util.HashMap<>();for(int x:nums)frequency.put(x,frequency.getOrDefault(x,0)+1);int count=0;for(int x:frequency.keySet())if(k==0?frequency.get(x)>1:frequency.containsKey(x+k))count++;return count; } }

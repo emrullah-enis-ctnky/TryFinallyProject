@@ -1,0 +1,57 @@
+{
+  "cases": [
+    {
+      "id": "tc-01",
+      "input": [
+        [
+          1,
+          12,
+          -5,
+          -6,
+          50,
+          3
+        ],
+        4
+      ],
+      "expectedOutput": 12.75,
+      "isHidden": false
+    },
+    {
+      "id": "tc-02",
+      "input": [
+        [
+          5
+        ],
+        1
+      ],
+      "expectedOutput": 5.0,
+      "isHidden": false
+    },
+    {
+      "id": "tc-03",
+      "input": [
+        [
+          -1,
+          -2,
+          -3
+        ],
+        2
+      ],
+      "expectedOutput": -1.5,
+      "isHidden": true
+    },
+    {
+      "id": "tc-04",
+      "input": [
+        [
+          0,
+          0,
+          0
+        ],
+        3
+      ],
+      "expectedOutput": 0.0,
+      "isHidden": true
+    }
+  ]
+}

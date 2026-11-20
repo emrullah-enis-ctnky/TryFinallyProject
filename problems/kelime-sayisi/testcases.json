@@ -1,0 +1,1 @@
+{"cases":[{"id":"tc-01","input":["check the north gate"],"expectedOutput":4,"isHidden":false},{"id":"tc-02","input":["solo"],"expectedOutput":1,"isHidden":false},{"id":"tc-03","input":[""],"expectedOutput":0,"isHidden":true},{"id":"tc-04","input":["a b c d e"],"expectedOutput":5,"isHidden":true}]}

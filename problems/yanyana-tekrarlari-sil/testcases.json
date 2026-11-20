@@ -1,0 +1,36 @@
+{
+  "cases": [
+    {
+      "id": "tc-01",
+      "input": [
+        "abbaca"
+      ],
+      "expectedOutput": "ca",
+      "isHidden": false
+    },
+    {
+      "id": "tc-02",
+      "input": [
+        "azxxzy"
+      ],
+      "expectedOutput": "ay",
+      "isHidden": false
+    },
+    {
+      "id": "tc-03",
+      "input": [
+        "aabb"
+      ],
+      "expectedOutput": "",
+      "isHidden": true
+    },
+    {
+      "id": "tc-04",
+      "input": [
+        "abc"
+      ],
+      "expectedOutput": "abc",
+      "isHidden": true
+    }
+  ]
+}

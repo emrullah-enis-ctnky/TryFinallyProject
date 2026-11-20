@@ -1,0 +1,1 @@
+class Solution { public int[] commonValues(int[] first, int[] second) { java.util.TreeSet<Integer> a=new java.util.TreeSet<>(); for(int x:first) a.add(x); java.util.TreeSet<Integer> b=new java.util.TreeSet<>(); for(int x:second) if(a.contains(x)) b.add(x); int[] r=new int[b.size()]; int i=0; for(int x:b) r[i++]=x; return r; } }

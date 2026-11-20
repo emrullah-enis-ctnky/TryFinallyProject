@@ -1,56 +1,48 @@
 ---
 slug: sesli-harf-sayisi
-title: Vokale zählen
+title: Vokale Zählen
 difficulty: kolay
-topics: [Strings]
+topics: [Zeichenfolgen]
 points: 10
 ---
 
 ## Problem
 
-Gegeben ist ein Text aus englischen Buchstaben. Schreibe eine Methode `countVowels`, die die Anzahl der Vokale (`a`, `e`, `i`, `o`, `u`) im Text zurückgibt. Groß- und Kleinbuchstaben zählen gleich.
+Zähle die Vokale in ASCII-Archivtexten. `countVowels` soll a, e, i, o und u in Groß- und Kleinschreibung zählen.
 
 ## Beispiele
 
-- `countVowels("hello world")` → `3`
-- `countVowels("Programming")` → `3`
+- `countVowels("Try again")` → `3`
+- `countVowels("rhythm")` → `0`
 
 ## Einschränkungen
 
-- Der Text enthält nur englische Buchstaben, Leerzeichen und Satzzeichen.
-- Der Text darf leer sein.
-- `y` zählt nicht als Vokal.
+- 0 <= text.length <= 100000; der Text enthält ASCII-Zeichen.
 
 ## Hinweis
 
-Wandle jedes Zeichen in einen Kleinbuchstaben um und prüfe, ob es in `"aeiou"` vorkommt.
+Prüfe die fünf Vokale und ihre Großbuchstaben.
 
 ## Startcode
 
 ```cpp
+#include <algorithm>
 #include <string>
-
+#include <vector>
 class Solution {
 public:
-  int countVowels(std::string text) {
-    // Schreibe deine Lösung hier
-    return 0;
-  }
+  int countVowels(std::string text) { return 0; }
 };
 ```
 
 ```java
 class Solution {
-  public int countVowels(String text) {
-    // Schreibe deine Lösung hier
-    return 0;
-  }
+  public int countVowels(String text) { return 0; }
 }
 ```
 
 ```python
 class Solution:
     def countVowels(self, text):
-        # Schreibe deine Lösung hier
         return 0
 ```

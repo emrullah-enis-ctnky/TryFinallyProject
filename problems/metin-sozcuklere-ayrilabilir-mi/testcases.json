@@ -1,0 +1,55 @@
+{
+  "cases": [
+    {
+      "id": "tc-01",
+      "input": [
+        "blueberry",
+        [
+          "blue",
+          "berry",
+          "blueb"
+        ]
+      ],
+      "expectedOutput": true,
+      "isHidden": false
+    },
+    {
+      "id": "tc-02",
+      "input": [
+        "catsandog",
+        [
+          "cats",
+          "dog",
+          "sand",
+          "and",
+          "cat"
+        ]
+      ],
+      "expectedOutput": false,
+      "isHidden": false
+    },
+    {
+      "id": "tc-03",
+      "input": [
+        "applepenapple",
+        [
+          "apple",
+          "pen"
+        ]
+      ],
+      "expectedOutput": true,
+      "isHidden": true
+    },
+    {
+      "id": "tc-04",
+      "input": [
+        "a",
+        [
+          "b"
+        ]
+      ],
+      "expectedOutput": false,
+      "isHidden": true
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+class Solution { public int longestCommonSubsequence(String first, String second) { int[][] d=new int[first.length()+1][second.length()+1];for(int i=1;i<=first.length();i++)for(int j=1;j<=second.length();j++)d[i][j]=first.charAt(i-1)==second.charAt(j-1)?d[i-1][j-1]+1:Math.max(d[i-1][j],d[i][j-1]);return d[first.length()][second.length()]; } }

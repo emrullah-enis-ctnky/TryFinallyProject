@@ -1,0 +1,1 @@
+class Solution { public int decodeWays(String code) { if(code.charAt(0)=='0')return 0;int p2=1,p1=1;for(int i=1;i<code.length();i++){int c=0;if(code.charAt(i)!='0')c+=p1;int v=(code.charAt(i-1)-'0')*10+code.charAt(i)-'0';if(v>=10&&v<=26)c+=p2;p2=p1;p1=c;}return p1; } }

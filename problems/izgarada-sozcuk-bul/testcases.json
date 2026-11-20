@@ -1,0 +1,8 @@
+{
+  "cases": [
+    { "id": "tc-01", "input": [["ABCE", "SFCS", "ADEE"], "ABCCED"], "expectedOutput": true, "isHidden": false },
+    { "id": "tc-02", "input": [["ABCE", "SFCS", "ADEE"], "ABCB"], "expectedOutput": false, "isHidden": false },
+    { "id": "tc-03", "input": [["A"] , "A"], "expectedOutput": true, "isHidden": true },
+    { "id": "tc-04", "input": [["AB", "CD"], "ACDB"], "expectedOutput": true, "isHidden": true }
+  ]
+}

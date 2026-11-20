@@ -1,0 +1,1 @@
+class Solution { public int[] targetRange(int[] nums, int target) { int l=0,r=nums.length;while(l<r){int m=(l+r)/2;if(nums[m]<target)l=m+1;else r=m;}int first=l;if(first==nums.length||nums[first]!=target)return new int[]{-1,-1};l=first;r=nums.length;while(l<r){int m=(l+r)/2;if(nums[m]<=target)l=m+1;else r=m;}return new int[]{first,l-1}; } }

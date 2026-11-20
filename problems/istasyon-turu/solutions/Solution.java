@@ -1,0 +1,1 @@
+class Solution { public int startStation(int[] fuel, int[] cost) { long total=0,tank=0;int start=0;for(int i=0;i<fuel.length;i++){long d=fuel[i]-cost[i];total+=d;tank+=d;if(tank<0){start=i+1;tank=0;}}return total<0?-1:start; } }

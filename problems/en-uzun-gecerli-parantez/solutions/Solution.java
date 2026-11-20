@@ -1,0 +1,1 @@
+class Solution { public int longestValidParentheses(String text) { java.util.ArrayDeque<Integer> st=new java.util.ArrayDeque<>();st.push(-1);int best=0;for(int i=0;i<text.length();i++){if(text.charAt(i)=='(')st.push(i);else{st.pop();if(st.isEmpty())st.push(i);else best=Math.max(best,i-st.peek());}}return best; } }

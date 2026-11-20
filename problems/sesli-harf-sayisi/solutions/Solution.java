@@ -1,9 +1,1 @@
-class Solution {
-  public int countVowels(String text) {
-    int count = 0;
-    for (char ch : text.toLowerCase().toCharArray()) {
-      if ("aeiou".indexOf(ch) >= 0) count++;
-    }
-    return count;
-  }
-}
+class Solution { public int countVowels(String text) { int n=0; for(char c:text.toCharArray()) if("aeiouAEIOU".indexOf(c)>=0) n++; return n; } }

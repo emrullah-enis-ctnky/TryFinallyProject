@@ -1,0 +1,1 @@
+class Solution { public int[][] addMatrices(int[][] a, int[][] b) { int[][] r=new int[a.length][]; for(int i=0;i<a.length;i++){r[i]=new int[a[i].length];for(int j=0;j<a[i].length;j++)r[i][j]=a[i][j]+b[i][j];} return r; } }

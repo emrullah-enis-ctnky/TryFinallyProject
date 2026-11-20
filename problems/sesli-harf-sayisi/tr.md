@@ -8,49 +8,41 @@ points: 10
 
 ## Problem
 
-İngilizce harflerden oluşan bir metin verilir. Metindeki sesli harflerin (`a`, `e`, `i`, `o`, `u`) sayısını döndüren `countVowels` metodunu yazın. Büyük ve küçük harfler aynı sayılır.
+Bir arşivdeki ASCII metinlerde sesli harfleri sayın. `countVowels`, a, e, i, o ve u harflerinin hem küçük hem büyük yazımlarını saymalıdır.
 
 ## Örnekler
 
-- `countVowels("hello world")` → `3`
-- `countVowels("Programming")` → `3`
+- `countVowels("Try again")` → `3`
+- `countVowels("rhythm")` → `0`
 
 ## Kısıtlamalar
 
-- Metin sadece İngilizce harfler, boşluklar ve noktalama işaretleri içerir.
-- Metin boş olabilir.
-- `y` sesli harf sayılmaz.
+- 0 <= text.length <= 100000; metin ASCII karakterlerinden oluşur.
 
 ## İpucu
 
-Metnin her karakterini küçük harfe çevirip `"aeiou"` içinde olup olmadığına bakabilirsiniz.
+Yalnızca beş sesli harfi ve büyük harf karşılıklarını denetleyin.
 
 ## Başlangıç Kodu
 
 ```cpp
+#include <algorithm>
 #include <string>
-
+#include <vector>
 class Solution {
 public:
-  int countVowels(std::string text) {
-    // Çözümünüzü buraya yazın
-    return 0;
-  }
+  int countVowels(std::string text) { return 0; }
 };
 ```
 
 ```java
 class Solution {
-  public int countVowels(String text) {
-    // Çözümünüzü buraya yazın
-    return 0;
-  }
+  public int countVowels(String text) { return 0; }
 }
 ```
 
 ```python
 class Solution:
     def countVowels(self, text):
-        # Çözümünüzü buraya yazın
         return 0
 ```

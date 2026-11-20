@@ -1,0 +1,1 @@
+class Solution { public int longestOnesAfterFlips(int[] bits, int k) { int left=0,zeros=0,best=0;for(int right=0;right<bits.length;right++){if(bits[right]==0)zeros++;while(zeros>k)if(bits[left++]==0)zeros--;best=Math.max(best,right-left+1);}return best; } }

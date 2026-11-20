@@ -1,0 +1,1 @@
+class Solution { public int[] nextGreaterValues(int[] nums) { int[] r=new int[nums.length], st=new int[nums.length];java.util.Arrays.fill(r,-1);int top=0;for(int i=0;i<nums.length;i++){while(top>0&&nums[st[top-1]]<nums[i])r[st[--top]]=nums[i];st[top++]=i;}return r; } }

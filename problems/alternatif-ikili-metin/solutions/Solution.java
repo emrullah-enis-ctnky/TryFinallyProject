@@ -1,0 +1,1 @@
+class Solution { public int minimumAlternatingFlips(String bits) { int a=0,b=0;for(int i=0;i<bits.length();i++){char x=(i%2==0?'0':'1');if(bits.charAt(i)!=x)a++;if(bits.charAt(i)==x)b++;}return Math.min(a,b); } }

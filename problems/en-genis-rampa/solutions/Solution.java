@@ -1,0 +1,1 @@
+class Solution { public int maximumWidthRamp(int[] nums) { int[] st=new int[nums.length];int top=0;for(int i=0;i<nums.length;i++)if(top==0||nums[i]<nums[st[top-1]])st[top++]=i;int best=0;for(int j=nums.length-1;j>=0;j--)while(top>0&&nums[st[top-1]]<=nums[j]){best=Math.max(best,j-st[--top]);}return best; } }

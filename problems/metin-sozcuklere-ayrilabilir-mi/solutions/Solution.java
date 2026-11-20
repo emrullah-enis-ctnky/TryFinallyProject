@@ -1,0 +1,1 @@
+class Solution { public boolean canSegment(String text, String[] words) { boolean[] dp=new boolean[text.length()+1];dp[0]=true;for(int i=0;i<text.length();i++)if(dp[i])for(String w:words)if(i+w.length()<=text.length()&&text.startsWith(w,i))dp[i+w.length()]=true;return dp[text.length()]; } }

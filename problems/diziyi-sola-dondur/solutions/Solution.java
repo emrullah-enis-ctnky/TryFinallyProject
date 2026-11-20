@@ -1,0 +1,1 @@
+class Solution { public int[] rotateLeft(int[] nums, int k) { if (nums.length == 0) return new int[0]; int shift = k % nums.length; int[] result = new int[nums.length]; for (int i = 0; i < nums.length; i++) result[i] = nums[(i + shift) % nums.length]; return result; } }

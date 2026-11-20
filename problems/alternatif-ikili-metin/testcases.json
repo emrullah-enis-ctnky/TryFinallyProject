@@ -1,0 +1,36 @@
+{
+  "cases": [
+    {
+      "id": "tc-01",
+      "input": [
+        "0100"
+      ],
+      "expectedOutput": 1,
+      "isHidden": false
+    },
+    {
+      "id": "tc-02",
+      "input": [
+        "1111"
+      ],
+      "expectedOutput": 2,
+      "isHidden": false
+    },
+    {
+      "id": "tc-03",
+      "input": [
+        "0"
+      ],
+      "expectedOutput": 0,
+      "isHidden": true
+    },
+    {
+      "id": "tc-04",
+      "input": [
+        "001"
+      ],
+      "expectedOutput": 1,
+      "isHidden": true
+    }
+  ]
+}
