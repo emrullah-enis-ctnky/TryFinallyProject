@@ -1,0 +1,1 @@
+class Solution { public int maxNonOverlappingIntervals(int[][] intervals) { java.util.Arrays.sort(intervals,(x,y)->Integer.compare(x[1],y[1]));int count=0,end=Integer.MIN_VALUE;for(int[] x:intervals)if(x[0]>=end){count++;end=x[1];}return count; } }

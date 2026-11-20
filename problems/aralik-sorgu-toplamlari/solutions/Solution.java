@@ -1,0 +1,1 @@
+class Solution { public int[] rangeQuerySums(int[] nums, int[][] queries) { int[] p=new int[nums.length+1];for(int i=0;i<nums.length;i++)p[i+1]=p[i]+nums[i];int[] r=new int[queries.length];for(int i=0;i<queries.length;i++)r[i]=p[queries[i][1]+1]-p[queries[i][0]];return r; } }

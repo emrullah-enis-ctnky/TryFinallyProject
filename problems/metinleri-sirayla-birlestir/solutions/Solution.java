@@ -1,0 +1,1 @@
+class Solution { public String mergeAlternately(String first, String second) { StringBuilder r=new StringBuilder();for(int i=0;i<first.length()||i<second.length();i++){if(i<first.length())r.append(first.charAt(i));if(i<second.length())r.append(second.charAt(i));}return r.toString(); } }

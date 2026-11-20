@@ -1,0 +1,1 @@
+class Solution { public int[] nextPermutation(int[] nums) { int[] r=nums.clone();int i=r.length-2;while(i>=0&&r[i]>=r[i+1])i--;if(i>=0){int j=r.length-1;while(r[j]<=r[i])j--;int t=r[i];r[i]=r[j];r[j]=t;}for(int l=i+1,h=r.length-1;l<h;l++,h--){int t=r[l];r[l]=r[h];r[h]=t;}return r; } }

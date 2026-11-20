@@ -1,0 +1,1 @@
+class Solution { public int countOneSquares(int[][] grid) { int rows=grid.length;if(rows==0)return 0;int cols=grid[0].length,total=0;int[] d=new int[cols+1];for(int i=1;i<=rows;i++){int diagonal=0;for(int j=1;j<=cols;j++){int up=d[j];if(grid[i-1][j-1]==1){d[j]=1+Math.min(d[j],Math.min(d[j-1],diagonal));total+=d[j];}else d[j]=0;diagonal=up;}}return total; } }

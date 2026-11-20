@@ -1,0 +1,1 @@
+{"cases":[{"id":"tc-01","input":[[1,2,3,4,5],2],"expectedOutput":[3,4,5,1,2],"isHidden":false},{"id":"tc-02","input":[[7,8],4],"expectedOutput":[7,8],"isHidden":false},{"id":"tc-03","input":[[],5],"expectedOutput":[],"isHidden":true},{"id":"tc-04","input":[[4],0],"expectedOutput":[4],"isHidden":true}]}

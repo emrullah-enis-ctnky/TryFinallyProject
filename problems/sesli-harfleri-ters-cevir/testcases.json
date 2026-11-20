@@ -1,0 +1,36 @@
+{
+  "cases": [
+    {
+      "id": "tc-01",
+      "input": [
+        "education"
+      ],
+      "expectedOutput": "odicatuen",
+      "isHidden": false
+    },
+    {
+      "id": "tc-02",
+      "input": [
+        "sky"
+      ],
+      "expectedOutput": "sky",
+      "isHidden": false
+    },
+    {
+      "id": "tc-03",
+      "input": [
+        "a"
+      ],
+      "expectedOutput": "a",
+      "isHidden": true
+    },
+    {
+      "id": "tc-04",
+      "input": [
+        "AEIOU"
+      ],
+      "expectedOutput": "UOIEA",
+      "isHidden": true
+    }
+  ]
+}

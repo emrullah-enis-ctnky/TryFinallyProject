@@ -1,0 +1,8 @@
+{
+  "cases": [
+    { "id": "tc-01", "input": [["OATH", "PEAS", "RAIN"], ["OATH", "PEA", "EAT", "RAIN"]], "expectedOutput": ["EAT", "OATH", "PEA", "RAIN"], "isHidden": false },
+    { "id": "tc-02", "input": [["AB", "CD"], ["AB", "ACDB", "AAAA"]], "expectedOutput": ["AB", "ACDB"], "isHidden": false },
+    { "id": "tc-03", "input": [["A"], []], "expectedOutput": [], "isHidden": true },
+    { "id": "tc-04", "input": [["AAB", "BCD"], ["AAB", "AB", "ABC", "BCDA"]], "expectedOutput": ["AAB", "AB", "ABC"], "isHidden": true }
+  ]
+}

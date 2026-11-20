@@ -1,0 +1,8 @@
+{
+  "cases": [
+    { "id": "tc-01", "input": [["cat", "bat", "rat"], "the cattle was rattled by the battery"], "expectedOutput": "the cat was rat by the bat", "isHidden": false },
+    { "id": "tc-02", "input": [["a"], "a aa"], "expectedOutput": "a a", "isHidden": false },
+    { "id": "tc-03", "input": [[], ""], "expectedOutput": "", "isHidden": true },
+    { "id": "tc-04", "input": [["go", "gone"], "going go"], "expectedOutput": "go go", "isHidden": true }
+  ]
+}

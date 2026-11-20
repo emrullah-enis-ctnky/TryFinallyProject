@@ -1,0 +1,8 @@
+{
+  "cases": [
+    { "id": "tc-01", "input": [[1, 4, 8], [2, 4, 9]], "expectedOutput": [1, 2, 4, 4, 8, 9], "isHidden": false },
+    { "id": "tc-02", "input": [[], [-3, 0]], "expectedOutput": [-3, 0], "isHidden": false },
+    { "id": "tc-03", "input": [[-1000000000], [1000000000]], "expectedOutput": [-1000000000, 1000000000], "isHidden": true },
+    { "id": "tc-04", "input": [[], []], "expectedOutput": [], "isHidden": true }
+  ]
+}

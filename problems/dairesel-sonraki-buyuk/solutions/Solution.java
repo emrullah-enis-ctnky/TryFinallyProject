@@ -1,0 +1,1 @@
+class Solution { public int[] circularNextGreater(int[] nums) { int n=nums.length;int[] r=new int[n],st=new int[n];java.util.Arrays.fill(r,-1);int top=0;for(int i=0;i<2*n;i++){int x=i%n;while(top>0&&nums[st[top-1]]<nums[x])r[st[--top]]=nums[x];if(i<n)st[top++]=i;}return r; } }

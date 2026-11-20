@@ -1,0 +1,1 @@
+class Solution { public int[] uniqueSorted(int[] nums) { if(nums.length==0)return new int[0];int[] tmp=new int[nums.length];int n=0;for(int x:nums)if(n==0||tmp[n-1]!=x)tmp[n++]=x;return java.util.Arrays.copyOf(tmp,n); } }

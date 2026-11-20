@@ -1,0 +1,1 @@
+class Solution { public int[] sortedSquares(int[] nums) { int[] r=new int[nums.length];int l=0,h=nums.length-1;for(int i=h;i>=0;i--){int a=nums[l]*nums[l],b=nums[h]*nums[h];if(a>b){r[i]=a;l++;}else{r[i]=b;h--;}}return r; } }

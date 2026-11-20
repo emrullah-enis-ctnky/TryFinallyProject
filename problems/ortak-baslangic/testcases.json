@@ -1,0 +1,48 @@
+{
+  "cases": [
+    {
+      "id": "tc-01",
+      "input": [
+        [
+          "planet",
+          "plant",
+          "plan"
+        ]
+      ],
+      "expectedOutput": "plan",
+      "isHidden": false
+    },
+    {
+      "id": "tc-02",
+      "input": [
+        [
+          "red",
+          "blue"
+        ]
+      ],
+      "expectedOutput": "",
+      "isHidden": false
+    },
+    {
+      "id": "tc-03",
+      "input": [
+        [
+          "alone"
+        ]
+      ],
+      "expectedOutput": "alone",
+      "isHidden": true
+    },
+    {
+      "id": "tc-04",
+      "input": [
+        [
+          "",
+          "abc"
+        ]
+      ],
+      "expectedOutput": "",
+      "isHidden": true
+    }
+  ]
+}

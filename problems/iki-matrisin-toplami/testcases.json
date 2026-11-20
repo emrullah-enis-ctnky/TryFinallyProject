@@ -1,0 +1,94 @@
+{
+  "cases": [
+    {
+      "id": "tc-01",
+      "input": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        [
+          [
+            5,
+            1
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      ],
+      "expectedOutput": [
+        [
+          6,
+          3
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "isHidden": false
+    },
+    {
+      "id": "tc-02",
+      "input": [
+        [
+          [],
+          []
+        ],
+        [
+          [],
+          []
+        ]
+      ],
+      "expectedOutput": [
+        [],
+        []
+      ],
+      "isHidden": false
+    },
+    {
+      "id": "tc-03",
+      "input": [
+        [
+          []
+        ],
+        [
+          []
+        ]
+      ],
+      "expectedOutput": [
+        []
+      ],
+      "isHidden": true
+    },
+    {
+      "id": "tc-04",
+      "input": [
+        [
+          [
+            4
+          ]
+        ],
+        [
+          [
+            -4
+          ]
+        ]
+      ],
+      "expectedOutput": [
+        [
+          0
+        ]
+      ],
+      "isHidden": true
+    }
+  ]
+}

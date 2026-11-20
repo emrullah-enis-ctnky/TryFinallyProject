@@ -1,0 +1,1 @@
+class Solution { public String compressRuns(String text) { StringBuilder r=new StringBuilder();for(int i=0;i<text.length();){int j=i+1;while(j<text.length()&&text.charAt(j)==text.charAt(i))j++;r.append(text.charAt(i));if(j-i>1)r.append(j-i);i=j;}return r.toString(); } }

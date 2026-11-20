@@ -1,0 +1,1 @@
+class Solution { public int countTargetSubarrays(int[] nums, int target) { java.util.HashMap<Integer,Integer> f=new java.util.HashMap<>();f.put(0,1);int sum=0,ans=0;for(int x:nums){sum+=x;ans+=f.getOrDefault(sum-target,0);f.put(sum,f.getOrDefault(sum,0)+1);}return ans; } }

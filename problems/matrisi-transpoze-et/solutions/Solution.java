@@ -1,0 +1,1 @@
+class Solution { public int[][] transpose(int[][] matrix) { if(matrix.length==0)return new int[0][0];int m=matrix[0].length;int[][] r=new int[m][matrix.length];for(int i=0;i<matrix.length;i++)for(int j=0;j<m;j++)r[j][i]=matrix[i][j];return r; } }
